@@ -1048,6 +1048,60 @@
 
     %end;
 */
+
+    %if %sysfunc(exist(cdmmart.cdm_identity_attr)) and %index(&CDM_TableList,CDM_IDENTITY_ATTR) %then %do;
+
+            data dblib.cdm_identity_attr;
+                retain uobs oobs;
+                set cdmmart.cdm_identity_attr
+                    (rename=(valid_to_dttm=valid_to_dttm_tmp
+                             user_identifier_val=user_identifier_val_tmp
+                             entry_dttm=entry_dttm_tmp
+                             source_system_cd=source_system_cd_tmp
+                             updated_by_nm=updated_by_nm_tmp
+                             updated_dttm=updated_dttm_tmp));
+
+                if _n_ = 1 then do;
+                    uobs=0;
+                    oobs=0;
+                    call symput('uobs',strip(uobs));
+                    call symput('oobs',strip(oobs));
+                end;
+
+                modify dblib.cdm_identity_attr
+                    (cntllev=rec dbkey=(identity_id identifier_type_id valid_from_dttm)) key=dbkey;
+
+                if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
+                    valid_to_dttm=valid_to_dttm_tmp;
+                    user_identifier_val=user_identifier_val_tmp;
+                    entry_dttm=entry_dttm_tmp;
+                    source_system_cd=source_system_cd_tmp;
+                    updated_by_nm=updated_by_nm_tmp;
+                    updated_dttm=input("&CurrentDateTime", e8601dz24.3);
+
+                    if _iorc_ eq %sysrc(_SOK) then do;
+                        replace;
+                        uobs = uobs + 1;
+                        call symput('uobs',strip(uobs));
+                    end;
+                    else do;
+                        output;
+                        oobs = oobs + 1;
+                        call symput('oobs',strip(oobs));
+                    end;
+                end;
+
+                _iorc_ = 0;
+                _error_ = 0;
+            run;
+
+            %put %sysfunc(datetime(),E8601DT25.) ---     &uobs rows updated, &oobs added to table CDM_IDENTITY_ATTR;
+
+            %ErrorCheck(CDM_IDENTITY_ATTR);
+            %if &rc %then %goto ERREXIT;
+
+    %end;
+
     %if %sysfunc(exist(cdmmart.cdm_response_channel)) and %index(&CDM_TableList,CDM_RESPONSE_CHANNEL) %then %do;
 
             data dblib.cdm_response_channel;
