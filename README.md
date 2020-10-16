@@ -95,4 +95,4 @@ We welcome your contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) fo
 This project is licensed under the [Apache 2.0 License](LICENSE).
 
 ## Additional Resources
-For more information, see the Help Center for SAS Customer Intelligence 360.
+For more information, see [Learn & Support](https://support.sas.com/en/software/customer-intelligence-360-support.html) for SAS Customer Intelligence 360.
