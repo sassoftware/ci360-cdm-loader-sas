@@ -591,6 +591,98 @@ EXECUTE (ALTER TABLE &SCHEMA..cdm_segment_map
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
 	ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY GREENPLM;
 
+/*** ADD FOREIGN KEYS: NOT ENFORCED BY DEFAULT ***/
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
+	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
+	ADD CONSTRAINT campaign_custom_attr_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
+	ADD CONSTRAINT identity_map_fk1 FOREIGN KEY (identity_type_cd) REFERENCES cdm_identity_type (identity_type_cd)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
+	ADD CONSTRAINT contact_history_fk3 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
+	ADD CONSTRAINT contact_history_fk1 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
+	ADD CONSTRAINT contact_history_fk2 FOREIGN KEY (contact_status_cd) REFERENCES cdm_contact_status (contact_status_cd)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
+	ADD CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
+	ADD CONSTRAINT dyn_content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
+	ADD CONSTRAINT identity_attr_fk2 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk7 FOREIGN KEY (response_type_cd) REFERENCES cdm_response_type (response_type_cd)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk1 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk3 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk4 FOREIGN KEY (response_cd) REFERENCES cdm_response_lookup (response_cd)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk5 FOREIGN KEY (response_channel_cd) REFERENCES cdm_response_channel (response_channel_cd)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	ADD CONSTRAINT response_history_fk6 FOREIGN KEY (contact_id) REFERENCES cdm_contact_history (contact_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
+	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
+	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
+	ADD CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES cdm_business_context (business_context_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
+	ADD CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES cdm_contact_channel (contact_channel_cd)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
+	ADD CONSTRAINT task_custom_attr_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
+	ADD CONSTRAINT activity_x_task_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
+	ADD CONSTRAINT activity_x_task_fk2 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
+	ADD CONSTRAINT rtc_detail_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
+	ADD CONSTRAINT rtc_detail_fk2 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
+	ADD CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES cdm_occurrence_detail (occurrence_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
+	ADD CONSTRAINT rtc_x_content_fk1 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
+	ADD CONSTRAINT rtc_x_content_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
+	ADD CONSTRAINT segment_custom_attr_fk1 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
+	ADD CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES cdm_segment_map (segment_map_version_id)) BY GREENPLM;
+
 DISCONNECT FROM GREENPLM;
 QUIT;
 

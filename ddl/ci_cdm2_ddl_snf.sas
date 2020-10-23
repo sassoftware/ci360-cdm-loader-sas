@@ -599,6 +599,8 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
 	ADD CONSTRAINT campaign_custom_attr_fk1 FOREIGN KEY (campaign_id) REFERENCES &SCHEMA..cdm_campaign_detail (campaign_id)) BY SASIOSNF;
 
+/*** ADD FOREIGN KEYS ***/
+
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
 	ADD CONSTRAINT identity_map_fk1 FOREIGN KEY (identity_type_cd) REFERENCES &SCHEMA..cdm_identity_type (identity_type_cd)) BY SASIOSNF;
 

@@ -592,6 +592,8 @@ EXECUTE (ALTER TABLE &SCHEMA..cdm_segment_map
 EXECUTE (ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
 	ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY SASIORST;
 
+/*** ADD FOREIGN KEYS ***/
+
 EXECUTE (ALTER TABLE &SCHEMA..cdm_activity_custom_attr
 	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES &SCHEMA..cdm_activity_detail (activity_version_id)) BY SASIORST;
 

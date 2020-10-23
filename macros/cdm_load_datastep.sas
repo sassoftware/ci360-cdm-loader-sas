@@ -1,6 +1,5 @@
 /*---------------------------------------------------------------------------------------
- * Copyright © 2020, SAS Institute Inc., Cary, NC, USA.  All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
+ *  Copyright (c) 2005-2020, SAS Institute Inc., Cary, NC, USA, All Rights Reserved
  *---------------------------------------------------------------------------------------
  *
  *  Module:     cdm_load_datastep.sas
@@ -152,11 +151,6 @@
     %end;
 
 
-/*
- *  This table is not available yet.
- */
-
-/*
     %if %sysfunc(exist(cdmmart.cdm_business_context)) and %index(&CDM_TableList,CDM_BUSINESS_CONTEXT) %then %do;
 
             data dblib.cdm_business_context;
@@ -208,7 +202,6 @@
             %if &rc %then %goto ERREXIT;
 
     %end;
-*/
 
 
     %if %sysfunc(exist(cdmmart.cdm_contact_channel)) and %index(&CDM_TableList,CDM_CONTACT_CHANNEL) %then %do;
@@ -997,10 +990,6 @@
     %end;
 
 
-/*
- *  This table is not available yet.
- */
-/*
     %if %sysfunc(exist(cdmmart.cdm_identifier_type)) and %index(&CDM_TableList,CDM_IDENTIFIER_TYPE) %then %do;
 
             data dblib.cdm_identifier_type;
@@ -1047,7 +1036,6 @@
             %if &rc %then %goto ERREXIT;
 
     %end;
-*/
 
     %if %sysfunc(exist(cdmmart.cdm_identity_attr)) and %index(&CDM_TableList,CDM_IDENTITY_ATTR) %then %do;
 

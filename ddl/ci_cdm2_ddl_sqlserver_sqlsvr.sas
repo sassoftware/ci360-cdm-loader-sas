@@ -593,6 +593,8 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
 ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
+/*** ADD FOREIGN KEYS ***/
+
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
 	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES &SCHEMA..cdm_activity_detail (activity_version_id)) BY SQLSVR;
 
@@ -683,6 +685,98 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
 	ADD CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES cdm_segment_map (segment_map_version_id)) BY SQLSVR;
 
+/* DISABLE FOREIGN KEY CONSTRAINTS */
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
+	NOCHECK CONSTRAINT activity_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
+	NOCHECK CONSTRAINT campaign_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
+	NOCHECK CONSTRAINT identity_map_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
+	NOCHECK CONSTRAINT contact_history_fk3 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
+	NOCHECK CONSTRAINT contact_history_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
+	NOCHECK CONSTRAINT contact_history_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
+NOCHECK CONSTRAINT content_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
+	NOCHECK CONSTRAINT dyn_content_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
+	NOCHECK CONSTRAINT identity_attr_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk7 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk3 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk4 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk5 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
+	NOCHECK CONSTRAINT response_history_fk6 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
+	NOCHECK CONSTRAINT response_extended_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
+	NOCHECK CONSTRAINT task_detail_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
+	NOCHECK CONSTRAINT task_detail_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
+	NOCHECK CONSTRAINT task_detail_fk3 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
+	NOCHECK CONSTRAINT task_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
+	NOCHECK CONSTRAINT activity_x_task_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
+	NOCHECK CONSTRAINT activity_x_task_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
+	NOCHECK CONSTRAINT rtc_detail_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
+	NOCHECK CONSTRAINT rtc_detail_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
+	NOCHECK CONSTRAINT rtc_detail_fk3 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
+	NOCHECK CONSTRAINT rtc_x_content_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
+NOCHECK CONSTRAINT rtc_x_content_fk2 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
+	NOCHECK CONSTRAINT segment_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
+	NOCHECK CONSTRAINT segment_map_custom_attr_fk1 ) BY SQLSVR;	
+	
 DISCONNECT FROM SQLSVR;
 QUIT;
 
