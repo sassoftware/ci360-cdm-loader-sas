@@ -1,6 +1,5 @@
 /*---------------------------------------------------------------------------------------
- * Copyright © 2020, SAS Institute Inc., Cary, NC, USA.  All Rights Reserved.
- * SPDX-License-Identifier: Apache-2.0
+ *  Copyright (c) 2005-2020, SAS Institute Inc., Cary, NC, USA, All Rights Reserved
  *---------------------------------------------------------------------------------------
  *
  *  Module:     cdm_build_keys.sas
@@ -124,9 +123,7 @@
         proc sql noprint;
             create table cdmmart.cdm_rtc_detail as
                 select * from cdmmart.cdm_rtc_detail as r
-                where r.segment_version_id ne "" and r.task_version_id ne "" and
-                    r.segment_version_id in (select s.segment_version_id from cdmmart.cdm_segment_detail as s) and
-                    r.task_version_id in (select t.task_version_id from cdmmart.cdm_task_detail as t)
+                where r.task_version_id ne "" and r.task_version_id in (select t.task_version_id from cdmmart.cdm_task_detail as t)
                 ;
         quit;
 

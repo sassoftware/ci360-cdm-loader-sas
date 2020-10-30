@@ -639,7 +639,7 @@
                              source_system_cd=source_system_cd_tmp
                              updated_by_nm=updated_by_nm_tmp
                              updated_dttm=updated_dttm_tmp)
-                             where=(segment_version_id_tmp ne "" and task_version_id_tmp ne ""));
+                             where=(task_version_id_tmp ne ""));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1240,6 +1240,19 @@
 
 
     %if %sysfunc(exist(cdmmart.cdm_rtc_x_content)) and %index(&CDM_TableList,CDM_RTC_X_CONTENT) %then %do;
+
+/*
+ *  Because of the ways the keys are generated for this table each upload appears to be new records and will never
+ *  update existing rows.  Since the input table is a complete snapshot each time there is no need to keep records
+ *  that were last loaded by the CDM process, only keep records that may have last been updated by another process
+ *  such as MA.
+ */
+
+            proc sql noprint;
+                delete from dblib.cdm_rtc_x_content
+                where updated_by_nm = "CDM2.0";
+            quit;
+
 
             data dblib.cdm_rtc_x_content;
                 retain uobs oobs;
