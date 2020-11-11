@@ -554,7 +554,7 @@
                 end;
 
                 modify dblib.cdm_task_detail
-                    (cntllev=rec dbkey=task_version_id) key=dbkey;
+                    (cntllev=rec dbkey=task_version_id sasdatefmt=(created_dt='date9.')) key=dbkey;
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     task_id = task_id_tmp;
@@ -816,7 +816,7 @@
                 end;
 
                 modify dblib.cdm_contact_history
-                    (cntllev=rec dbkey=contact_id) key=dbkey;
+                    (cntllev=rec dbkey=contact_id sasdatefmt=(contact_dt='date9.')) key=dbkey;
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     identity_id=identity_id_tmp;
@@ -888,7 +888,7 @@
                 end;
 
                 modify dblib.cdm_content_detail
-                    (cntllev=rec dbkey=content_version_id) key=dbkey;
+                    (cntllev=rec dbkey=content_version_id sasdatefmt=(created_dt='date9.')) key=dbkey;
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     content_id=content_id_tmp;
@@ -1442,7 +1442,7 @@
                 end;
 
                 modify dblib.cdm_response_history
-                    (cntllev=rec dbkey=(response_id)) key=dbkey;
+                    (cntllev=rec dbkey=(response_id) sasdatefmt=(response_dt='date9.')) key=dbkey;
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
 
