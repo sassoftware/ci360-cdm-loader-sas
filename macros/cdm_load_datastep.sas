@@ -989,7 +989,10 @@
 
     %end;
 
-
+/*
+ *  This table is not available yet.
+ */
+/*
     %if %sysfunc(exist(cdmmart.cdm_identifier_type)) and %index(&CDM_TableList,CDM_IDENTIFIER_TYPE) %then %do;
 
             data dblib.cdm_identifier_type;
@@ -1036,6 +1039,7 @@
             %if &rc %then %goto ERREXIT;
 
     %end;
+*/
 
     %if %sysfunc(exist(cdmmart.cdm_identity_attr)) and %index(&CDM_TableList,CDM_IDENTITY_ATTR) %then %do;
 

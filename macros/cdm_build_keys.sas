@@ -115,11 +115,17 @@
     %end;
 
 /*
- *  Our dev environment currently has inconsistent data, particularly related to rtc values.  Need to do some
- *  temporary data cleanup.
+ *  Most of these checks were put into place because of foreign key constraints between multiple tables.  Based on timing
+ *  and the availability of data on any instance of a download some of those constraints could not always be satisfied and
+ *  were causing issues, thus the checks here to make sure appropriate id's were found in linked tables.  For the moment
+ *  those foreign key constraints have been disabled in the DDL's for the appropriate databases.
+ *
+ *  We are going to remove these checks for connections between various id's in several tables.  If foreign key constraints
+ *  are enabled for a particular table these checks may need to be added back in.
  */
 
-    %if %sysfunc(exist(cdmmart.cdm_rtc_detail)) %then %do;
+/*
+    %if %sysfunc(exist(cdmmart.cdm_rtc_detail)) and %sysfunc(exist(cdmmart.cdm_task_detail)) %then %do;
         proc sql noprint;
             create table cdmmart.cdm_rtc_detail as
                 select * from cdmmart.cdm_rtc_detail as r
@@ -130,8 +136,10 @@
         %ErrorCheck(CDM_RTC_DETAIL);
         %if &rc %then %goto ERREXIT;
     %end;
+ */
 
-    %if %sysfunc(exist(cdmmart.cdm_activity_x_task)) %then %do;
+/*
+    %if %sysfunc(exist(cdmmart.cdm_activity_x_task)) and %sysfunc(exist(cdmmart.cdm_task_detail)) %then %do;
         proc sql noprint;
             create table cdmmart.cdm_activity_x_task as
                 select * from cdmmart.cdm_activity_x_task as a
@@ -142,8 +150,11 @@
         %ErrorCheck(CDM_ACTIVITY_X_TASK);
         %if &rc %then %goto ERREXIT;
     %end;
+ */
 
-    %if %sysfunc(exist(cdmmart.cdm_rtc_x_content)) %then %do;
+/*
+    %if %sysfunc(exist(cdmmart.cdm_rtc_x_content)) and %sysfunc(exist(cdmmart.cdm_content_detail)) and
+        %sysfunc(exist(cdmmart.cdm_rtc_detail)) %then %do;
         proc sql noprint;
             create table cdmmart.cdm_rtc_x_content as
                 select * from cdmmart.cdm_rtc_x_content as r
@@ -155,7 +166,7 @@
         %ErrorCheck(CDM_RTC_X_CONTENT);
         %if &rc %then %goto ERREXIT;
     %end;
-
+ */
 
     %ERREXIT:
 
