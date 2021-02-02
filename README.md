@@ -8,7 +8,9 @@ into a third-party database.
 
 ## Prerequisites
 Before you can run the program, complete these steps:
-1. Install Base SAS 9.4M4 (with Unicode Support)
+1. Install Base SAS. The version depends on the database that you are loading data into:
+      * For the Snowflake database, install Base SAS 9.4M7 (with Unicode Support).
+      * For all other databases, install Base SAS 9.4M4 (with Unicode Support).
 2. Enable SAS to use the XCMD System Option. For more information, see the 
   [Help Center for SAS 9.4](https://go.documentation.sas.com/?cdcId=pgmsascdc&cdcVersion=9.4_3.4) and search for the 
   XCMD option.
@@ -95,4 +97,4 @@ We welcome your contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) fo
 This project is licensed under the [Apache 2.0 License](LICENSE).
 
 ## Additional Resources
-For more information, see the Help Center for SAS Customer Intelligence 360.
+For more information, see the [Learn Page](https://support.sas.com/en/software/customer-intelligence-360-support.html) for SAS Customer Intelligence 360.
