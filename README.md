@@ -8,7 +8,9 @@ into a third-party database.
 
 ## Prerequisites
 Before you can run the program, complete these steps:
-1. Install Base SAS 9.4M7 (with Unicode Support)
+1. Install Base SAS. The version depends on the database that you are loading data into:
+      * For the Snowflake database, install Base SAS 9.4M7 (with Unicode Support).
+      * For all other databases, install Base SAS 9.4M4 (with Unicode Support).
 2. Enable SAS to use the XCMD System Option. For more information, see the 
   [Help Center for SAS 9.4](https://go.documentation.sas.com/?cdcId=pgmsascdc&cdcVersion=9.4_3.4) and search for the 
   XCMD option.
