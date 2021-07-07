@@ -27,6 +27,9 @@
 
     %let rc = 0;
 
+    %let updated_by_nm = CDM2.0;
+    %let source_system_cd = 360;
+
 /*
  *  For each SAS data set in the CDM make sure it exists in the CDM Mart.  If present, use a SAS data step
  *  to modify the existing database, either updating or adding observations based on the primary key.
@@ -45,10 +48,7 @@
                              activity_desc=activity_desc_tmp
                              activity_cd=activity_cd_tmp
                              activity_category_nm=activity_category_nm_tmp
-                             last_published_dttm=last_published_dttm_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             last_published_dttm=last_published_dttm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -70,8 +70,8 @@
                     activity_cd=activity_cd_tmp;
                     activity_category_nm=activity_category_nm_tmp;
                     last_published_dttm=last_published_dttm_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -105,9 +105,7 @@
                 set cdmmart.cdm_activity_custom_attr
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
-                             attribute_dttm_val=attribute_dttm_val_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             attribute_dttm_val=attribute_dttm_val_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -124,7 +122,7 @@
                     attribute_character_val = attribute_character_val_tmp;
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -157,10 +155,7 @@
                 retain uobs oobs;
                 set cdmmart.cdm_business_context
                     (rename=(business_context_nm=business_context_nm_tmp
-                             business_context_type_cd=business_context_type_cd_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             business_context_type_cd=business_context_type_cd_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -176,8 +171,8 @@
 
                     business_context_nm = business_context_nm_tmp;
                     business_context_type_cd = business_context_type_cd_tmp;
-                    source_system_cd = source_system_cd_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    source_system_cd = "&source_system_cd";
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -209,9 +204,7 @@
             data dblib.cdm_contact_channel;
                 retain uobs oobs;
                 set cdmmart.cdm_contact_channel
-                    (rename=(contact_channel_nm=contact_channel_nm_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                    (rename=(contact_channel_nm=contact_channel_nm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -226,7 +219,7 @@
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
 
                     contact_channel_nm = contact_channel_nm_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -265,10 +258,7 @@
                              segment_map_category_nm=segment_map_category_nm_tmp
                              segment_map_cd=segment_map_cd_tmp
                              segment_map_src_nm=segment_map_src_nm_tmp
-                             segment_map_status_cd=segment_map_status_cd_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             segment_map_status_cd=segment_map_status_cd_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -291,8 +281,8 @@
                     segment_map_cd=segment_map_cd_tmp;
                     segment_map_src_nm=segment_map_src_nm_tmp;
                     segment_map_status_cd=segment_map_status_cd_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -325,9 +315,7 @@
                 set cdmmart.cdm_segment_map_custom_attr
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
-                             attribute_dttm_val=attribute_dttm_val_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             attribute_dttm_val=attribute_dttm_val_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -344,7 +332,7 @@
                     attribute_character_val = attribute_character_val_tmp;
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -382,10 +370,7 @@
                              occurrence_type_cd=occurrence_type_cd_tmp
                              occurrence_object_id=occurrence_object_id_tmp
                              occurrence_object_type_cd=occurrence_object_type_cd_tmp
-                             source_system_cd=source_system_cd_tmp
-                             execution_status_cd=execution_status_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             execution_status_cd=execution_status_cd_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -404,9 +389,9 @@
                     occurrence_type_cd=occurrence_type_cd_tmp;
                     occurrence_object_id=occurrence_object_id_tmp;
                     occurrence_object_type_cd=occurrence_object_type_cd_tmp;
-                    source_system_cd=source_system_cd_tmp;
+                    source_system_cd="&source_system_cd";
                     execution_status_cd=execution_status_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -446,10 +431,7 @@
                              segment_category_nm=segment_category_nm_tmp
                              segment_cd=segment_cd_tmp
                              segment_src_nm=segment_src_nm_tmp
-                             segment_status_cd=segment_status_cd_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             segment_status_cd=segment_status_cd_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -472,8 +454,8 @@
                     segment_cd=segment_cd_tmp;
                     segment_src_nm=segment_src_nm_tmp;
                     segment_status_cd=segment_status_cd_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -541,10 +523,7 @@
                              staged_flg = staged_flg_tmp
                              contact_channel_cd = contact_channel_cd_tmp
                              campaign_id = campaign_id_tmp
-                             business_context_id = business_context_id_tmp
-                             source_system_cd = source_system_cd_tmp
-                             updated_by_nm = updated_by_nm_tmp
-                             updated_dttm = updated_dttm_tmp));
+                             business_context_id = business_context_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -595,8 +574,8 @@
                     contact_channel_cd = contact_channel_cd_tmp;
                     campaign_id = campaign_id_tmp;
                     business_context_id = business_context_id_tmp;
-                    source_system_cd = source_system_cd_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    source_system_cd = "&source_system_cd";
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -635,10 +614,7 @@
                              task_version_id=task_version_id_tmp
                              execution_status_cd=sexecution_status_cd_tmp
                              deleted_flg=deleted_flg_tmp
-                             occurrence_id=occurrence_id_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp)
+                             occurrence_id=occurrence_id_tmp)
                              where=(task_version_id_tmp ne ""));
 
                 if _n_ = 1 then do;
@@ -660,8 +636,8 @@
                     execution_status_cd=sexecution_status_cd_tmp;
                     deleted_flg=deleted_flg_tmp;
                     occurrence_id=occurrence_id_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -698,9 +674,7 @@
             data dblib.cdm_identity_type;
                 retain uobs oobs;
                 set cdmmart.cdm_identity_type
-                    (rename=(identity_type_desc=identity_type_desc_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                    (rename=(identity_type_desc=identity_type_desc_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -714,7 +688,7 @@
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     identity_type_desc=identity_type_desc_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -747,9 +721,7 @@
             data dblib.cdm_identity_map;
                 retain uobs oobs;
                 set cdmmart.cdm_identity_map
-                    (rename=(identity_type_cd=identity_type_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                    (rename=(identity_type_cd=identity_type_cd_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -763,7 +735,7 @@
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     identity_type_cd=identity_type_cd;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -802,10 +774,7 @@
                              optimization_backfill_flg=optimization_backfill_flg_tmp
                              external_contact_info_1_id=external_contact_info_1_id_tmp
                              external_contact_info_2_id=external_contact_info_2_id_tmp
-                             rtc_id=rtc_id_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp)
+                             rtc_id=rtc_id_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -828,8 +797,8 @@
                     external_contact_info_1_id=external_contact_info_1_id_tmp;
                     external_contact_info_2_id=external_contact_info_2_id_tmp;
                     rtc_id=rtc_id_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -875,10 +844,7 @@
                              created_user_nm=created_user_nm_tmp
                              created_dt=created_dt_tmp
                              external_reference_txt=external_reference_txt_tmp
-                             external_reference_url_txt=external_reference_url_txt_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             external_reference_url_txt=external_reference_url_txt_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -907,8 +873,8 @@
                     created_dt=created_dt_tmp;
                     external_reference_txt=external_reference_txt_tmp;
                     external_reference_url_txt=external_reference_url_txt_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -943,9 +909,7 @@
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
                              attribute_dttm_val=attribute_dttm_val_tmp
-                             extension_attribute_nm=extension_attribute_nm_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             extension_attribute_nm=extension_attribute_nm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -963,7 +927,7 @@
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
                     extension_attribute_nm = extension_attribute_nm_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -998,9 +962,7 @@
             data dblib.cdm_identifier_type;
                 retain uobs oobs;
                 set cdmmart.cdm_identifier_type
-                    (rename=(identifier_type_desc=identifier_type_desc_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                    (rename=(identifier_type_desc=identifier_type_desc_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1014,7 +976,7 @@
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     identifier_type_desc=identifier_type_desc_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1048,10 +1010,7 @@
                 set cdmmart.cdm_identity_attr
                     (rename=(valid_to_dttm=valid_to_dttm_tmp
                              user_identifier_val=user_identifier_val_tmp
-                             entry_dttm=entry_dttm_tmp
-                             source_system_cd=source_system_cd_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             entry_dttm=entry_dttm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1067,8 +1026,8 @@
                     valid_to_dttm=valid_to_dttm_tmp;
                     user_identifier_val=user_identifier_val_tmp;
                     entry_dttm=entry_dttm_tmp;
-                    source_system_cd=source_system_cd_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    source_system_cd="&source_system_cd";
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1099,9 +1058,7 @@
             data dblib.cdm_response_channel;
                 retain uobs oobs;
                 set cdmmart.cdm_response_channel
-                    (rename=(response_channel_nm=response_channel_nm_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                    (rename=(response_channel_nm=response_channel_nm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1115,7 +1072,7 @@
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     response_channel_nm=response_channel_nm_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1150,9 +1107,7 @@
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
                              attribute_dttm_val=attribute_dttm_val_tmp
-                             extension_attribute_nm=extension_attribute_nm_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             extension_attribute_nm=extension_attribute_nm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1170,7 +1125,7 @@
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
                     extension_attribute_nm = extension_attribute_nm_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1201,9 +1156,7 @@
 
             data dblib.cdm_activity_x_task;
                 retain uobs oobs;
-                set cdmmart.cdm_activity_x_task
-                    (rename=(updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                set cdmmart.cdm_activity_x_task;
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1216,7 +1169,7 @@
                     (cntllev=rec dbkey=(activity_version_id task_version_id)) key=dbkey;
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1264,9 +1217,7 @@
                     (rename=(rtc_id=rtc_id_tmp
                              content_version_id=content_version_id_tmp
                              content_hash_val=content_hash_val_tmp
-                             sequence_no=sequence_no_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp)
+                             sequence_no=sequence_no_tmp)
                              where=(content_version_id_tmp ne "" ));
 
                 if _n_ = 1 then do;
@@ -1284,7 +1235,7 @@
                     content_version_id=content_version_id_tmp;
                     content_hash_val=content_hash_val_tmp;
                     sequence_no=sequence_no_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1318,9 +1269,7 @@
                 set cdmmart.cdm_segment_custom_attr
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
-                             attribute_dttm_val=attribute_dttm_val_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                             attribute_dttm_val=attribute_dttm_val_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1337,7 +1286,7 @@
                     attribute_character_val = attribute_character_val_tmp;
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1369,9 +1318,7 @@
             data dblib.cdm_response_lookup;
                 retain uobs oobs;
                 set cdmmart.cdm_response_lookup
-                    (rename=(response_nm=response_nm_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp));
+                    (rename=(response_nm=response_nm_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1385,7 +1332,7 @@
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
                     response_nm=response_nm_tmp;
-                    updated_by_nm=updated_by_nm_tmp;
+                    updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1431,11 +1378,8 @@
                              rtc_id = rtc_id_tmp
                              content_version_id = content_version_id_tmp
                              response_val_amt = response_val_amt_tmp
-                             source_system_cd = source_system_cd_tmp
                              contact_id = contact_id_tmp
-                             content_hash_val = content_hash_val_tmp
-                             updated_by_nm = updated_by_nm_tmp
-                             updated_dttm = updated_dttm_tmp)
+                             content_hash_val = content_hash_val_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1464,10 +1408,10 @@
                     rtc_id = rtc_id_tmp;
                     content_version_id = content_version_id_tmp;
                     response_val_amt = response_val_amt_tmp;
-                    source_system_cd = source_system_cd_tmp;
+                    source_system_cd = "&source_system_cd";
                     contact_id = contact_id_tmp;
                     content_hash_val = content_hash_val_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;
@@ -1500,9 +1444,7 @@
                 retain uobs oobs;
                 set cdmmart.cdm_response_extended_attr
                     (rename=(attribute_data_type_cd=attribute_data_type_cd_tmp
-                             attribute_val=attribute_val_tmp
-                             updated_by_nm=updated_by_nm_tmp
-                             updated_dttm=updated_dttm_tmp)
+                             attribute_val=attribute_val_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1519,7 +1461,7 @@
 
                     attribute_data_type_cd = attribute_data_type_cd_tmp;
                     attribute_val = attribute_val_tmp;
-                    updated_by_nm = updated_by_nm_tmp;
+                    updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
                     if _iorc_ eq %sysrc(_SOK) then do;

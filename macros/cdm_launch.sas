@@ -85,7 +85,7 @@
  */
 
     %let dbname=oracle;
-    %let dbpath=orapath
+    %let dbpath=orapath;
     %let dbschema=myschema;
     %let dbuser=myuser;
     %let dbpass="mypass";
