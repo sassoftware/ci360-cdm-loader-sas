@@ -201,7 +201,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 (
-	identifier_type_id   STRING NOT NULL ,
+	identifier_type_id   STRING ,
 	identifier_type_desc STRING  ,
 	updated_by_nm        STRING  ,
 	updated_dttm         TIMESTAMP  

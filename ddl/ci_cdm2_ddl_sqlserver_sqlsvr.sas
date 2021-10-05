@@ -85,7 +85,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 	campaign_status_cd   VARCHAR(3) NULL ,
 	campaign_type_cd     VARCHAR(3) NULL ,
 	campaign_folder_txt  VARCHAR(1024) NULL ,
-	campaign_group_sk    NUMERIC(15) NOT NULL ,
+	campaign_group_sk    NUMERIC(15) NULL ,
 	deployment_version_no NUMERIC(6) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
@@ -203,7 +203,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 (
-	identifier_type_id   VARCHAR(36) NOT NULL ,
+	identifier_type_id   VARCHAR(36) NULL ,
 	identifier_type_desc VARCHAR(100) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
@@ -237,8 +237,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_occurrence_detail
 	end_dttm             DATETIME2 NULL ,
 	occurrence_no        INTEGER NULL ,
 	occurrence_type_cd   VARCHAR(30) NULL ,
-	occurence_object_id  VARCHAR(36) NULL ,
-	occurence_object_type_cd VARCHAR(60) NULL ,
+	occurrence_object_id  VARCHAR(36) NULL ,
+	occurrence_object_type_cd VARCHAR(60) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	execution_status_cd  VARCHAR(30) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
@@ -375,7 +375,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 (
 	rtc_id               VARCHAR(36) NOT NULL ,
-	task_occurence_no    INTEGER NULL ,
+	task_occurrence_no    INTEGER NULL ,
 	processed_dttm       DATETIME2 NOT NULL ,
 	response_tracking_flg CHAR(1) NULL ,
 	segment_version_id   VARCHAR(36) NULL ,
@@ -535,9 +535,6 @@ ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id ASC,
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,content_hash_val ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
-
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_identifier_type
-	ADD CONSTRAINT  id_type_pk PRIMARY KEY (identifier_type_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
 	ADD CONSTRAINT  identity_user_pk PRIMARY KEY (identity_id ASC,identifier_type_id ASC)) BY SQLSVR;

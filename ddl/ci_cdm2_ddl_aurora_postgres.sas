@@ -1,12 +1,14 @@
 
-/*=============================================================================*/
-/* Enter Customer Specific Target Source Connection Values - SQL Server (ODBC) */
-/*=============================================================================*/
+/*===========================================================================*/
+/* Enter Customer Specific Target Source Connection Values - Aurora Postgres */
+/*===========================================================================*/
 
-%let user = <User Name> ;         /* Other than Default User */
-%let pwd  = <Password> ;          /* SQL Server Password     */
-%let dsn  = <Data Source>;        /* SQL Server Data Source  */
-%let schema = <Schema>;           /* SQL Server Schema       */
+%let server = <Server> ;          /* Postgres Server         */
+%let port = <Port> ;              /* Postgres Port           */
+%let user = <User Name> ;         /* Postgres User/Schema    */
+%let pass = <Password> ;          /* Postgres Password       */
+%let database = <Database> ;      /* Postgres Database       */
+%let schema = <Schema> ;          /* Postgres Schema         */
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
@@ -17,24 +19,25 @@
 
 PROC SQL NOERRORSTOP;
 
-CONNECT TO ODBC (USER=&USER PWD=&PWD DSN=&DSN);
+CONNECT TO POSTGRES (USER="&USER" PASS="&PASS" SERVER="&SERVER"
+                       DATABASE="&DATABASE" PORT="&PORT");
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_detail
 (
 	activity_version_id  VARCHAR(36) NOT NULL ,
 	activity_id          VARCHAR(36) NULL ,
-	valid_from_dttm      DATETIME2 NOT NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NOT NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
 	status_cd            VARCHAR(20) NULL ,
 	activity_nm          VARCHAR(256) NULL ,
-	activity_desc        VARCHAR(MAX) NULL ,
+	activity_desc        TEXT NULL ,
 	activity_cd          VARCHAR(60) NULL ,
 	activity_category_nm VARCHAR(100) NULL ,
-	last_published_dttm  DATETIME2 NULL ,
+	last_published_dttm  TIMESTAMP NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 (
@@ -44,10 +47,10 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
 (
@@ -56,28 +59,28 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
 	business_context_type_cd VARCHAR(40) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 (
 	campaign_id          VARCHAR(36) NOT NULL ,
 	campaign_version_no  NUMERIC(6) NULL ,
-	valid_from_dttm      DATETIME2 NOT NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NOT NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
 	campaign_nm          VARCHAR(60) NULL ,
-	campaign_desc        VARCHAR(MAX) NULL ,
+	campaign_desc        TEXT NULL ,
 	campaign_cd          VARCHAR(60) NULL ,
 	campaign_owner_nm    VARCHAR(60) NULL ,
 	min_budget_offer_amt NUMERIC(14,2) NULL ,
 	max_budget_offer_amt NUMERIC(14,2) NULL ,
 	min_budget_amt       NUMERIC(14,2) NULL ,
 	max_budget_amt       NUMERIC(14,2) NULL ,
-	start_dttm           DATETIME2 NULL ,
-	end_dttm             DATETIME2 NULL ,
-	run_dttm             DATETIME2 NULL ,
-	last_modified_dttm   DATETIME2 NULL ,
-	approval_dttm        DATETIME2 NULL ,
+	start_dttm           TIMESTAMP NULL ,
+	end_dttm             TIMESTAMP NULL ,
+	run_dttm             TIMESTAMP NULL ,
+	last_modified_dttm   TIMESTAMP NULL ,
+	approval_dttm        TIMESTAMP NULL ,
 	approval_given_by_nm VARCHAR(60) NULL ,
 	last_modified_by_user_nm VARCHAR(60) NULL ,
 	current_version_flg  CHAR(1) NULL ,
@@ -89,8 +92,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 	deployment_version_no NUMERIC(6) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_custom_attr
 (
@@ -101,27 +104,27 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_channel
 (
 	contact_channel_cd   VARCHAR(60) NOT NULL ,
 	contact_channel_nm   VARCHAR(40) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_map
 (
 	identity_id          VARCHAR(36) NOT NULL ,
 	identity_type_cd     VARCHAR(40) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 (
@@ -129,7 +132,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	identity_id          VARCHAR(36) NOT NULL ,
 	contact_nm           VARCHAR(256) NULL ,
 	contact_dt           DATE NULL ,
-	contact_dttm         DATETIME2 NULL ,
+	contact_dttm         TIMESTAMP NULL ,
 	contact_status_cd    VARCHAR(3) NULL ,
 	optimization_backfill_flg CHAR(1) NULL ,
 	external_contact_info_1_id VARCHAR(32) NULL ,
@@ -137,25 +140,25 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	rtc_id               VARCHAR(36) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
 (
 	contact_status_cd    VARCHAR(3) NOT NULL ,
 	contact_status_desc  VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_content_detail
 (
 	content_version_id   VARCHAR(40) NOT NULL ,
 	content_id           VARCHAR(40) NULL ,
-	valid_from_dttm      DATETIME2 NOT NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NOT NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
 	contact_content_nm   VARCHAR(256) NULL ,
-	contact_content_desc VARCHAR(MAX) NULL ,
+	contact_content_desc TEXT NULL ,
 	contact_content_type_nm VARCHAR(50) NULL ,
 	contact_content_status_cd VARCHAR(60) NULL ,
 	contact_content_category_nm VARCHAR(256) NULL ,
@@ -169,8 +172,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_detail
 	external_reference_url_txt VARCHAR(1024) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 (
@@ -180,11 +183,11 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 (
@@ -195,46 +198,46 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 (
 	identifier_type_id   VARCHAR(36) NULL ,
 	identifier_type_desc VARCHAR(100) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_attr
 (
 	identity_id          VARCHAR(36) NOT NULL ,
 	identifier_type_id   VARCHAR(36) NOT NULL ,
-	valid_from_dttm      DATETIME2 NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
-	user_identifier_val  VARCHAR(MAX) NULL ,
-	entry_dttm           DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
+	user_identifier_val  TEXT NULL ,
+	entry_dttm           TIMESTAMP NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_type
 (
 	identity_type_cd     VARCHAR(40) NOT NULL ,
 	identity_type_desc   VARCHAR(100) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_occurrence_detail
 (
 	occurrence_id        VARCHAR(36) NOT NULL ,
-	start_dttm           DATETIME2 NULL ,
-	end_dttm             DATETIME2 NULL ,
+	start_dttm           TIMESTAMP NULL ,
+	end_dttm             TIMESTAMP NULL ,
 	occurrence_no        INTEGER NULL ,
 	occurrence_type_cd   VARCHAR(30) NULL ,
 	occurrence_object_id  VARCHAR(36) NULL ,
@@ -242,23 +245,23 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_occurrence_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	execution_status_cd  VARCHAR(30) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_channel
 (
 	response_channel_cd  VARCHAR(40) NOT NULL ,
 	response_channel_nm  VARCHAR(60) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 (
 	response_id          VARCHAR(36) NOT NULL ,
 	response_cd          VARCHAR(256) NULL ,
-	response_dt          DATETIME2 NULL ,
-	response_dttm        DATETIME2 NULL ,
+	response_dt          TIMESTAMP NULL ,
+	response_dttm        TIMESTAMP NULL ,
 	external_contact_info_1_id VARCHAR(32) NULL ,
 	external_contact_info_2_id VARCHAR(32) NULL ,
 	response_type_cd     VARCHAR(60) NULL ,
@@ -274,8 +277,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 	contact_id           VARCHAR(36) NULL ,
 	content_hash_val     VARCHAR(32) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
 (
@@ -285,33 +288,33 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
 	attribute_data_type_cd VARCHAR(30) NULL ,
 	attribute_val        VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_lookup
 (
 	response_cd          VARCHAR(256) NOT NULL ,
 	response_nm          VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_type
 (
 	response_type_cd     VARCHAR(60) NOT NULL ,
 	response_type_desc   VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 (
 	task_version_id      VARCHAR(36) NOT NULL ,
 	task_id              VARCHAR(36) NULL ,
-	valid_from_dttm      DATETIME2 NOT NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NOT NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
 	task_nm              VARCHAR(256) NULL ,
-	task_desc            VARCHAR(MAX) NULL ,
+	task_desc            TEXT NULL ,
 	task_type_nm         VARCHAR(40) NULL ,
 	task_status_cd       VARCHAR(20) NULL ,
 	task_subtype_nm      VARCHAR(100) NULL ,
@@ -324,13 +327,13 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	modified_status_cd   VARCHAR(20) NULL ,
 	created_user_nm      VARCHAR(40) NULL ,
 	created_dt           DATE NULL ,
-	scheduled_start_dttm DATETIME2 NULL ,
-	scheduled_end_dttm   DATETIME2 NULL ,
+	scheduled_start_dttm TIMESTAMP NULL ,
+	scheduled_end_dttm   TIMESTAMP NULL ,
 	scheduled_flg        CHAR(1) NULL ,
 	maximum_period_expression_cnt INTEGER NULL ,
 	limit_period_unit_cnt INTEGER NULL ,
 	limit_by_total_impression_flg CHAR(1) NULL ,
-	export_dttm          DATETIME2 NULL ,
+	export_dttm          TIMESTAMP NULL ,
 	update_contact_history_flg CHAR(1) NULL ,
 	subject_type_nm      VARCHAR(60) NULL ,
 	min_budget_offer_amt NUMERIC(14,2) NULL ,
@@ -347,8 +350,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	business_context_id  VARCHAR(36) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 (
@@ -358,25 +361,25 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 (
 	activity_version_id  VARCHAR(36) NOT NULL ,
 	task_version_id      VARCHAR(36) NOT NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 (
 	rtc_id               VARCHAR(36) NOT NULL ,
 	task_occurrence_no    INTEGER NULL ,
-	processed_dttm       DATETIME2 NOT NULL ,
+	processed_dttm       TIMESTAMP NOT NULL ,
 	response_tracking_flg CHAR(1) NULL ,
 	segment_version_id   VARCHAR(36) NULL ,
 	task_version_id      VARCHAR(36) NOT NULL ,
@@ -385,8 +388,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 	occurrence_id        VARCHAR(36) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 (
@@ -396,26 +399,26 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 	content_hash_val     VARCHAR(32) NULL ,
 	sequence_no          INTEGER NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
 (
 	segment_version_id   VARCHAR(36) NOT NULL ,
 	segment_id           VARCHAR(36) NULL ,
 	segment_map_version_id VARCHAR(36) NULL ,
-	valid_from_dttm      DATETIME2 NOT NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NOT NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
 	segment_nm           VARCHAR(256) NULL ,
-	segment_desc         VARCHAR(MAX) NULL ,
+	segment_desc         TEXT NULL ,
 	segment_category_nm  VARCHAR(100) NULL ,
 	segment_cd           VARCHAR(60) NULL ,
 	segment_src_nm       VARCHAR(40) NULL ,
 	segment_status_cd    VARCHAR(20) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 (
@@ -425,27 +428,27 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map
 (
 	segment_map_version_id VARCHAR(36) NOT NULL ,
 	segment_map_id       VARCHAR(36) NULL ,
-	valid_from_dttm      DATETIME2 NOT NULL ,
-	valid_to_dttm        DATETIME2 NULL ,
+	valid_from_dttm      TIMESTAMP NOT NULL ,
+	valid_to_dttm        TIMESTAMP NULL ,
 	segment_map_nm       VARCHAR(256) NULL ,
-	segment_map_desc     VARCHAR(MAX) NULL ,
+	segment_map_desc     TEXT NULL ,
 	segment_map_category_nm VARCHAR(100) NULL ,
 	segment_map_cd       VARCHAR(60) NULL ,
 	segment_map_src_nm   VARCHAR(40) NULL ,
 	segment_map_status_cd VARCHAR(20) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 /** INSERT RECORD INTO CDM_SEGMENT_MAP TABLE **/
 
@@ -467,7 +470,7 @@ values (
 '0',
 '0',
 current_timestamp,
-DATETIME2FROMPARTS ( 9999, 12, 31, 00, 00, 00, 0, 0 ), 
+to_date('9999-12-31:00:00:00','YYYY-MM-DD:HH24:MI:SS'),
 '_NO SEGMENT MAP',
 '_NO SEGMENT MAP',
 '',
@@ -477,7 +480,7 @@ DATETIME2FROMPARTS ( 9999, 12, 31, 00, 00, 00, 0, 0 ),
 '360',
 'CDM2.0',
 current_timestamp
-)) BY ODBC;
+)) BY POSTGRES;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 (
@@ -487,10 +490,10 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 	attribute_val        VARCHAR(1500) NOT NULL ,
 	attribute_character_val VARCHAR(1500) NULL ,
 	attribute_numeric_val NUMERIC(17,2) NULL ,
-	attribute_dttm_val   DATETIME2 NULL ,
+	attribute_dttm_val   TIMESTAMP NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+	updated_dttm         TIMESTAMP NULL 
+)) BY POSTGRES;
 
 /*=================================================================*/
 /*=========  B E G I N   A L T E R   T A B L E   S E C T I O N  ===*/
@@ -499,282 +502,251 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 /*    Primary Key and Foreign Key Constraints.                     */
 /*=================================================================*/
 
-
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_detail
-	ADD CONSTRAINT  activity_detail_pk PRIMARY KEY (activity_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  activity_detail_pk PRIMARY KEY (activity_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
-ADD CONSTRAINT  activity_custom_attr_pk PRIMARY KEY (activity_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  activity_custom_attr_pk PRIMARY KEY (activity_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_business_context
-	ADD CONSTRAINT  business_context_pk PRIMARY KEY (business_context_id ASC)) BY ODBC;
+	ADD CONSTRAINT  business_context_pk PRIMARY KEY (business_context_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_detail
-	ADD CONSTRAINT  campaign_pk PRIMARY KEY (campaign_id ASC)) BY ODBC;
+	ADD CONSTRAINT  campaign_detail_pk PRIMARY KEY (campaign_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
-ADD CONSTRAINT  campaign_custom_attribute_pk PRIMARY KEY (campaign_id ASC,attribute_nm ASC,page_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  campaign_custom_attribute_pk PRIMARY KEY (campaign_id,attribute_nm,page_nm,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_channel
-	ADD CONSTRAINT  contact_channel_pk PRIMARY KEY (contact_channel_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_channel_pk PRIMARY KEY (contact_channel_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
-	ADD CONSTRAINT  identity_pk PRIMARY KEY (identity_id ASC)) BY ODBC;
+	ADD CONSTRAINT  identity_map_pk PRIMARY KEY (identity_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT  contact_pk PRIMARY KEY (contact_id ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_history_pk PRIMARY KEY (contact_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_status
-	ADD CONSTRAINT  contact_status_pk PRIMARY KEY (contact_status_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_status_pk PRIMARY KEY (contact_status_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_detail
-	ADD CONSTRAINT  contact_content_pk PRIMARY KEY (content_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  content_detail_pk PRIMARY KEY (content_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
-ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
-	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,content_hash_val ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id,attribute_nm,content_hash_val,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
-	ADD CONSTRAINT  identity_user_pk PRIMARY KEY (identity_id ASC,identifier_type_id ASC)) BY ODBC;
+	ADD CONSTRAINT  identity_attr_pk PRIMARY KEY (identity_id,identifier_type_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_type
-	ADD CONSTRAINT  identity_type_pk PRIMARY KEY (identity_type_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  identity_type_pk PRIMARY KEY (identity_type_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_occurrence_detail
-	ADD CONSTRAINT  occurrence_detail_pk PRIMARY KEY (occurrence_id ASC)) BY ODBC;
+	ADD CONSTRAINT  occurrence_detail_pk PRIMARY KEY (occurrence_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_channel
-	ADD CONSTRAINT  response_channel_pk PRIMARY KEY (response_channel_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  response_channel_pk PRIMARY KEY (response_channel_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT  response_pk PRIMARY KEY (response_id ASC)) BY ODBC;
+	ADD CONSTRAINT  response_history_pk PRIMARY KEY (response_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
-	ADD CONSTRAINT  response_extended_attr_pk PRIMARY KEY (response_id ASC,response_attribute_type_cd ASC,attribute_nm ASC)) BY ODBC;
+	ADD CONSTRAINT  response_extended_attr_pk PRIMARY KEY (response_id,response_attribute_type_cd,attribute_nm)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_lookup
-	ADD CONSTRAINT  response_lookup_pk PRIMARY KEY (response_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  response_lookup_pk PRIMARY KEY (response_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_type
-	ADD CONSTRAINT  response_type_pk PRIMARY KEY (response_type_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  response_type_pk PRIMARY KEY (response_type_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT  task_pk PRIMARY KEY (task_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  task_detail_pk PRIMARY KEY (task_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
-	ADD CONSTRAINT  task_custom_attribute_pk PRIMARY KEY (task_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+ 	ADD CONSTRAINT  task_custom_attribute_pk PRIMARY KEY (task_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	ADD CONSTRAINT  activity_x_task_pk PRIMARY KEY (activity_version_id ASC,task_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  activity_x_task_pk PRIMARY KEY (activity_version_id,task_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT  rtc_detail_pk PRIMARY KEY (rtc_id ASC)) BY ODBC;
+	ADD CONSTRAINT  rtc_detail_pk PRIMARY KEY (rtc_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-	ADD CONSTRAINT  rtc_x_content_pk PRIMARY KEY (rtc_x_content_sk ASC)) BY ODBC;
-	
+	ADD CONSTRAINT  rtc_x_content_pk PRIMARY KEY (rtc_x_content_sk)) BY POSTGRES;
+
 EXECUTE (CREATE UNIQUE INDEX rtc_x_content_uk ON &SCHEMA..cdm_rtc_x_content
-	(rtc_id   ASC,content_version_id   ASC,content_hash_val   ASC,sequence_no   ASC)) BY ODBC;
+(rtc_id ASC, content_version_id ASC, content_hash_val ASC, sequence_no ASC)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_detail
-	ADD CONSTRAINT  segment_detail_pk PRIMARY KEY (segment_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_detail_pk PRIMARY KEY (segment_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
-	ADD CONSTRAINT  segment_custom_attr_pk PRIMARY KEY (segment_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_custom_attr_pk PRIMARY KEY (segment_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map
-	ADD CONSTRAINT  segment_map_pk PRIMARY KEY (segment_map_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_map_pk PRIMARY KEY (segment_map_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id,attribute_nm,attribute_data_type_cd,attribute_val)) BY POSTGRES;
 
 /*** ADD FOREIGN KEYS ***/
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
-	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES &SCHEMA..cdm_activity_detail (activity_version_id)) BY ODBC;
+	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
-	ADD CONSTRAINT campaign_custom_attr_fk1 FOREIGN KEY (campaign_id) REFERENCES &SCHEMA..cdm_campaign_detail (campaign_id)) BY ODBC;
+	ADD CONSTRAINT campaign_custom_attr_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
-	ADD CONSTRAINT identity_map_fk1 FOREIGN KEY (identity_type_cd) REFERENCES cdm_identity_type (identity_type_cd)) BY ODBC;
+	ADD CONSTRAINT identity_map_fk1 FOREIGN KEY (identity_type_cd) REFERENCES cdm_identity_type (identity_type_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT contact_history_fk3 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY ODBC;
+	ADD CONSTRAINT contact_history_fk3 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT contact_history_fk1 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY ODBC;
+	ADD CONSTRAINT contact_history_fk1 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT contact_history_fk2 FOREIGN KEY (contact_status_cd) REFERENCES cdm_contact_status (contact_status_cd)) BY ODBC;
+	ADD CONSTRAINT contact_history_fk2 FOREIGN KEY (contact_status_cd) REFERENCES cdm_contact_status (contact_status_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
-ADD CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
-	ADD CONSTRAINT dyn_content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT dyn_content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
-	ADD CONSTRAINT identity_attr_fk2 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY ODBC;
+	ADD CONSTRAINT identity_attr_fk2 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk7 FOREIGN KEY (response_type_cd) REFERENCES cdm_response_type (response_type_cd)) BY ODBC;
+	ADD CONSTRAINT response_history_fk7 FOREIGN KEY (response_type_cd) REFERENCES cdm_response_type (response_type_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk1 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk1 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk3 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk3 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk4 FOREIGN KEY (response_cd) REFERENCES cdm_response_lookup (response_cd)) BY ODBC;
+	ADD CONSTRAINT response_history_fk4 FOREIGN KEY (response_cd) REFERENCES cdm_response_lookup (response_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk5 FOREIGN KEY (response_channel_cd) REFERENCES cdm_response_channel (response_channel_cd)) BY ODBC;
+	ADD CONSTRAINT response_history_fk5 FOREIGN KEY (response_channel_cd) REFERENCES cdm_response_channel (response_channel_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk6 FOREIGN KEY (contact_id) REFERENCES cdm_contact_history (contact_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk6 FOREIGN KEY (contact_id) REFERENCES cdm_contact_history (contact_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
-	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY ODBC;
+	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY ODBC;
+	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES cdm_business_context (business_context_id)) BY ODBC;
+	ADD CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES cdm_business_context (business_context_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES cdm_contact_channel (contact_channel_cd)) BY ODBC;
+	ADD CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES cdm_contact_channel (contact_channel_cd)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
-	ADD CONSTRAINT task_custom_attr_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY ODBC;
+	ADD CONSTRAINT task_custom_attr_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	ADD CONSTRAINT activity_x_task_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY ODBC;
+	ADD CONSTRAINT activity_x_task_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	ADD CONSTRAINT activity_x_task_fk2 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY ODBC;
+	ADD CONSTRAINT activity_x_task_fk2 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT rtc_detail_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY ODBC;
+	ADD CONSTRAINT rtc_detail_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT rtc_detail_fk2 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY ODBC;
+	ADD CONSTRAINT rtc_detail_fk2 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES cdm_occurrence_detail (occurrence_id)) BY ODBC;
+	ADD CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES cdm_occurrence_detail (occurrence_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-	ADD CONSTRAINT rtc_x_content_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT rtc_x_content_fk1 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-ADD CONSTRAINT rtc_x_content_fk2 FOREIGN KEY (rtc_id) REFERENCES &SCHEMA..cdm_rtc_detail (rtc_id)) BY ODBC;
+	ADD CONSTRAINT rtc_x_content_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
-	ADD CONSTRAINT segment_custom_attr_fk1 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY ODBC;
+	ADD CONSTRAINT segment_custom_attr_fk1 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY POSTGRES;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-	ADD CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES cdm_segment_map (segment_map_version_id)) BY ODBC;
+	ADD CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES cdm_segment_map (segment_map_version_id)) BY POSTGRES;
 
 /* DISABLE FOREIGN KEY CONSTRAINTS */
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
-	NOCHECK CONSTRAINT activity_custom_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
-	NOCHECK CONSTRAINT campaign_custom_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
-	NOCHECK CONSTRAINT identity_map_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	NOCHECK CONSTRAINT contact_history_fk3 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	NOCHECK CONSTRAINT contact_history_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	NOCHECK CONSTRAINT contact_history_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
-NOCHECK CONSTRAINT content_custom_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
-	NOCHECK CONSTRAINT dyn_content_custom_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
-	NOCHECK CONSTRAINT identity_attr_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk7 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk3 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk4 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk5 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk6 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
-	NOCHECK CONSTRAINT response_extended_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	NOCHECK CONSTRAINT task_detail_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	NOCHECK CONSTRAINT task_detail_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	NOCHECK CONSTRAINT task_detail_fk3 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
-	NOCHECK CONSTRAINT task_custom_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	NOCHECK CONSTRAINT activity_x_task_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	NOCHECK CONSTRAINT activity_x_task_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	NOCHECK CONSTRAINT rtc_detail_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	NOCHECK CONSTRAINT rtc_detail_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	NOCHECK CONSTRAINT rtc_detail_fk3 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-	NOCHECK CONSTRAINT rtc_x_content_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-NOCHECK CONSTRAINT rtc_x_content_fk2 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
-	NOCHECK CONSTRAINT segment_custom_attr_fk1 ) BY ODBC;
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-	NOCHECK CONSTRAINT segment_map_custom_attr_fk1 ) BY ODBC;	
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr DISABLE TRIGGER ALL) BY POSTGRES;
 
-DISCONNECT FROM ODBC;
+DISCONNECT FROM POSTGRES;
 QUIT;
 
 

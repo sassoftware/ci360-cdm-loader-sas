@@ -201,7 +201,7 @@ EXECUTE (CREATE TABLE cdm_dyn_content_custom_attr
 
 EXECUTE (CREATE TABLE cdm_identifier_type
 (
-	identifier_type_id   VARCHAR2(36) NOT NULL ,
+	identifier_type_id   VARCHAR2(36) NULL ,
 	identifier_type_desc VARCHAR2(100) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
 	updated_dttm         TIMESTAMP NULL 
@@ -532,9 +532,6 @@ EXECUTE ( ALTER TABLE cdm_content_custom_attr
 
 EXECUTE ( ALTER TABLE cdm_dyn_content_custom_attr
 	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id,attribute_nm,content_hash_val,attribute_data_type_cd,attribute_val)) BY ORACLE;
-
-EXECUTE ( ALTER TABLE cdm_identifier_type
-	ADD CONSTRAINT  identifier_type_pk PRIMARY KEY (identifier_type_id)) BY ORACLE;
 
 EXECUTE ( ALTER TABLE cdm_identity_attr
 	ADD CONSTRAINT  identity_attr_pk PRIMARY KEY (identity_id,identifier_type_id)) BY ORACLE;

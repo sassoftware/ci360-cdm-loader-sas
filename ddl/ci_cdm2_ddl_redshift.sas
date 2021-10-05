@@ -85,7 +85,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 	campaign_status_cd   VARCHAR(3) NULL ,
 	campaign_type_cd     VARCHAR(3) NULL ,
 	campaign_folder_txt  VARCHAR(1024) NULL ,
-	campaign_group_sk    NUMERIC(15) NOT NULL ,
+	campaign_group_sk    NUMERIC(15) NULL ,
 	deployment_version_no NUMERIC(6) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
@@ -203,7 +203,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 (
-	identifier_type_id   VARCHAR(36) NOT NULL ,
+	identifier_type_id   VARCHAR(36) NULL ,
 	identifier_type_desc VARCHAR(100) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         TIMESTAMP NULL 
@@ -534,9 +534,6 @@ ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id,attr
 
 EXECUTE (ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
 ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id,attribute_nm,content_hash_val,attribute_data_type_cd,attribute_val)) BY SASIORST;
-
-EXECUTE (ALTER TABLE &SCHEMA..cdm_identifier_type
-	ADD CONSTRAINT  id_type_pk PRIMARY KEY (identifier_type_id)) BY SASIORST;
 
 EXECUTE (ALTER TABLE &SCHEMA..cdm_identity_attr
 	ADD CONSTRAINT  identity_attr_pk PRIMARY KEY (identity_id,identifier_type_id)) BY SASIORST;

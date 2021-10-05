@@ -1,7 +1,6 @@
-
-/*=============================================================================*/
-/* Enter Customer Specific Target Source Connection Values - SQL Server (ODBC) */
-/*=============================================================================*/
+/*======================================================================*/
+/* Enter Customer Specific Target Source Connection Values - Azure SQL  */
+/*======================================================================*/
 
 %let user = <User Name> ;         /* Other than Default User */
 %let pwd  = <Password> ;          /* SQL Server Password     */
@@ -17,7 +16,7 @@
 
 PROC SQL NOERRORSTOP;
 
-CONNECT TO ODBC (USER=&USER PWD=&PWD DSN=&DSN);
+CONNECT TO SQLSVR (USER=&USER PWD=&PWD DSN=&DSN);
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_detail
 (
@@ -34,7 +33,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 (
@@ -47,7 +46,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 	attribute_dttm_val   DATETIME2 NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
 (
@@ -57,7 +56,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 (
@@ -90,7 +89,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_custom_attr
 (
@@ -105,7 +104,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_custom_attr
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_channel
 (
@@ -113,7 +112,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_channel
 	contact_channel_nm   VARCHAR(40) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_map
 (
@@ -121,7 +120,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_map
 	identity_type_cd     VARCHAR(40) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 (
@@ -138,7 +137,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
 (
@@ -146,7 +145,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
 	contact_status_desc  VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_content_detail
 (
@@ -170,7 +169,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 (
@@ -184,7 +183,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 (
@@ -199,7 +198,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 (
@@ -207,7 +206,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 	identifier_type_desc VARCHAR(100) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_attr
 (
@@ -220,7 +219,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_attr
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_type
 (
@@ -228,7 +227,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_identity_type
 	identity_type_desc   VARCHAR(100) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_occurrence_detail
 (
@@ -243,7 +242,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_occurrence_detail
 	execution_status_cd  VARCHAR(30) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_channel
 (
@@ -251,7 +250,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_channel
 	response_channel_nm  VARCHAR(60) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 (
@@ -275,7 +274,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 	content_hash_val     VARCHAR(32) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
 (
@@ -286,7 +285,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
 	attribute_val        VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_lookup
 (
@@ -294,7 +293,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_lookup
 	response_nm          VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_type
 (
@@ -302,7 +301,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_type
 	response_type_desc   VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 (
@@ -348,7 +347,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 (
@@ -362,7 +361,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 (
@@ -370,7 +369,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 	task_version_id      VARCHAR(36) NOT NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 (
@@ -386,7 +385,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 (
@@ -397,7 +396,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 	sequence_no          INTEGER NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
 (
@@ -415,7 +414,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 (
@@ -428,7 +427,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 	attribute_dttm_val   DATETIME2 NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map
 (
@@ -445,7 +444,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 /** INSERT RECORD INTO CDM_SEGMENT_MAP TABLE **/
 
@@ -477,7 +476,7 @@ DATETIME2FROMPARTS ( 9999, 12, 31, 00, 00, 00, 0, 0 ),
 '360',
 'CDM2.0',
 current_timestamp
-)) BY ODBC;
+)) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 (
@@ -490,7 +489,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 	attribute_dttm_val   DATETIME2 NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL 
-)) BY ODBC;
+)) BY SQLSVR;
 
 /*=================================================================*/
 /*=========  B E G I N   A L T E R   T A B L E   S E C T I O N  ===*/
@@ -501,280 +500,280 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_detail
-	ADD CONSTRAINT  activity_detail_pk PRIMARY KEY (activity_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  activity_detail_pk PRIMARY KEY (activity_version_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
-ADD CONSTRAINT  activity_custom_attr_pk PRIMARY KEY (activity_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+ADD CONSTRAINT  activity_custom_attr_pk PRIMARY KEY (activity_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_business_context
-	ADD CONSTRAINT  business_context_pk PRIMARY KEY (business_context_id ASC)) BY ODBC;
+	ADD CONSTRAINT  business_context_pk PRIMARY KEY (business_context_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_detail
-	ADD CONSTRAINT  campaign_pk PRIMARY KEY (campaign_id ASC)) BY ODBC;
+	ADD CONSTRAINT  campaign_pk PRIMARY KEY (campaign_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
-ADD CONSTRAINT  campaign_custom_attribute_pk PRIMARY KEY (campaign_id ASC,attribute_nm ASC,page_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+ADD CONSTRAINT  campaign_custom_attribute_pk PRIMARY KEY (campaign_id ASC,attribute_nm ASC,page_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_channel
-	ADD CONSTRAINT  contact_channel_pk PRIMARY KEY (contact_channel_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_channel_pk PRIMARY KEY (contact_channel_cd ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
-	ADD CONSTRAINT  identity_pk PRIMARY KEY (identity_id ASC)) BY ODBC;
+	ADD CONSTRAINT  identity_pk PRIMARY KEY (identity_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT  contact_pk PRIMARY KEY (contact_id ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_pk PRIMARY KEY (contact_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_status
-	ADD CONSTRAINT  contact_status_pk PRIMARY KEY (contact_status_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_status_pk PRIMARY KEY (contact_status_cd ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_detail
-	ADD CONSTRAINT  contact_content_pk PRIMARY KEY (content_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  contact_content_pk PRIMARY KEY (content_version_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
-ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
-	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,content_hash_val ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id ASC,attribute_nm ASC,content_hash_val ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
-	ADD CONSTRAINT  identity_user_pk PRIMARY KEY (identity_id ASC,identifier_type_id ASC)) BY ODBC;
+	ADD CONSTRAINT  identity_user_pk PRIMARY KEY (identity_id ASC,identifier_type_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_type
-	ADD CONSTRAINT  identity_type_pk PRIMARY KEY (identity_type_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  identity_type_pk PRIMARY KEY (identity_type_cd ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_occurrence_detail
-	ADD CONSTRAINT  occurrence_detail_pk PRIMARY KEY (occurrence_id ASC)) BY ODBC;
+	ADD CONSTRAINT  occurrence_detail_pk PRIMARY KEY (occurrence_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_channel
-	ADD CONSTRAINT  response_channel_pk PRIMARY KEY (response_channel_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  response_channel_pk PRIMARY KEY (response_channel_cd ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT  response_pk PRIMARY KEY (response_id ASC)) BY ODBC;
+	ADD CONSTRAINT  response_pk PRIMARY KEY (response_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
-	ADD CONSTRAINT  response_extended_attr_pk PRIMARY KEY (response_id ASC,response_attribute_type_cd ASC,attribute_nm ASC)) BY ODBC;
+	ADD CONSTRAINT  response_extended_attr_pk PRIMARY KEY (response_id ASC,response_attribute_type_cd ASC,attribute_nm ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_lookup
-	ADD CONSTRAINT  response_lookup_pk PRIMARY KEY (response_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  response_lookup_pk PRIMARY KEY (response_cd ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_type
-	ADD CONSTRAINT  response_type_pk PRIMARY KEY (response_type_cd ASC)) BY ODBC;
+	ADD CONSTRAINT  response_type_pk PRIMARY KEY (response_type_cd ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT  task_pk PRIMARY KEY (task_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  task_pk PRIMARY KEY (task_version_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
-	ADD CONSTRAINT  task_custom_attribute_pk PRIMARY KEY (task_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  task_custom_attribute_pk PRIMARY KEY (task_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	ADD CONSTRAINT  activity_x_task_pk PRIMARY KEY (activity_version_id ASC,task_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  activity_x_task_pk PRIMARY KEY (activity_version_id ASC,task_version_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT  rtc_detail_pk PRIMARY KEY (rtc_id ASC)) BY ODBC;
+	ADD CONSTRAINT  rtc_detail_pk PRIMARY KEY (rtc_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-	ADD CONSTRAINT  rtc_x_content_pk PRIMARY KEY (rtc_x_content_sk ASC)) BY ODBC;
+	ADD CONSTRAINT  rtc_x_content_pk PRIMARY KEY (rtc_x_content_sk ASC)) BY SQLSVR;
 	
 EXECUTE (CREATE UNIQUE INDEX rtc_x_content_uk ON &SCHEMA..cdm_rtc_x_content
-	(rtc_id   ASC,content_version_id   ASC,content_hash_val   ASC,sequence_no   ASC)) BY ODBC;
+	(rtc_id   ASC,content_version_id   ASC,content_hash_val   ASC,sequence_no   ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_detail
-	ADD CONSTRAINT  segment_detail_pk PRIMARY KEY (segment_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_detail_pk PRIMARY KEY (segment_version_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
-	ADD CONSTRAINT  segment_custom_attr_pk PRIMARY KEY (segment_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_custom_attr_pk PRIMARY KEY (segment_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map
-	ADD CONSTRAINT  segment_map_pk PRIMARY KEY (segment_map_version_id ASC)) BY ODBC;
+	ADD CONSTRAINT  segment_map_pk PRIMARY KEY (segment_map_version_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY ODBC;
+ADD CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id ASC,attribute_nm ASC,attribute_data_type_cd ASC,attribute_val ASC)) BY SQLSVR;
 
 /*** ADD FOREIGN KEYS ***/
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
-	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES &SCHEMA..cdm_activity_detail (activity_version_id)) BY ODBC;
+	ADD CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES &SCHEMA..cdm_activity_detail (activity_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
-	ADD CONSTRAINT campaign_custom_attr_fk1 FOREIGN KEY (campaign_id) REFERENCES &SCHEMA..cdm_campaign_detail (campaign_id)) BY ODBC;
+	ADD CONSTRAINT campaign_custom_attr_fk1 FOREIGN KEY (campaign_id) REFERENCES &SCHEMA..cdm_campaign_detail (campaign_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
-	ADD CONSTRAINT identity_map_fk1 FOREIGN KEY (identity_type_cd) REFERENCES cdm_identity_type (identity_type_cd)) BY ODBC;
+	ADD CONSTRAINT identity_map_fk1 FOREIGN KEY (identity_type_cd) REFERENCES cdm_identity_type (identity_type_cd)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT contact_history_fk3 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY ODBC;
+	ADD CONSTRAINT contact_history_fk3 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT contact_history_fk1 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY ODBC;
+	ADD CONSTRAINT contact_history_fk1 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	ADD CONSTRAINT contact_history_fk2 FOREIGN KEY (contact_status_cd) REFERENCES cdm_contact_status (contact_status_cd)) BY ODBC;
+	ADD CONSTRAINT contact_history_fk2 FOREIGN KEY (contact_status_cd) REFERENCES cdm_contact_status (contact_status_cd)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
-ADD CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY ODBC;
+ADD CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
-	ADD CONSTRAINT dyn_content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT dyn_content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
-	ADD CONSTRAINT identity_attr_fk2 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY ODBC;
+	ADD CONSTRAINT identity_attr_fk2 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk7 FOREIGN KEY (response_type_cd) REFERENCES cdm_response_type (response_type_cd)) BY ODBC;
+	ADD CONSTRAINT response_history_fk7 FOREIGN KEY (response_type_cd) REFERENCES cdm_response_type (response_type_cd)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk1 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk1 FOREIGN KEY (identity_id) REFERENCES cdm_identity_map (identity_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk2 FOREIGN KEY (rtc_id) REFERENCES cdm_rtc_detail (rtc_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk3 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk3 FOREIGN KEY (content_version_id) REFERENCES cdm_content_detail (content_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk4 FOREIGN KEY (response_cd) REFERENCES cdm_response_lookup (response_cd)) BY ODBC;
+	ADD CONSTRAINT response_history_fk4 FOREIGN KEY (response_cd) REFERENCES cdm_response_lookup (response_cd)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk5 FOREIGN KEY (response_channel_cd) REFERENCES cdm_response_channel (response_channel_cd)) BY ODBC;
+	ADD CONSTRAINT response_history_fk5 FOREIGN KEY (response_channel_cd) REFERENCES cdm_response_channel (response_channel_cd)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	ADD CONSTRAINT response_history_fk6 FOREIGN KEY (contact_id) REFERENCES cdm_contact_history (contact_id)) BY ODBC;
+	ADD CONSTRAINT response_history_fk6 FOREIGN KEY (contact_id) REFERENCES cdm_contact_history (contact_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
-	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY ODBC;
+	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY ODBC;
+	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES cdm_business_context (business_context_id)) BY ODBC;
+	ADD CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES cdm_business_context (business_context_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	ADD CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES cdm_contact_channel (contact_channel_cd)) BY ODBC;
+	ADD CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES cdm_contact_channel (contact_channel_cd)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
-	ADD CONSTRAINT task_custom_attr_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY ODBC;
+	ADD CONSTRAINT task_custom_attr_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	ADD CONSTRAINT activity_x_task_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY ODBC;
+	ADD CONSTRAINT activity_x_task_fk1 FOREIGN KEY (activity_version_id) REFERENCES cdm_activity_detail (activity_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	ADD CONSTRAINT activity_x_task_fk2 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY ODBC;
+	ADD CONSTRAINT activity_x_task_fk2 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT rtc_detail_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY ODBC;
+	ADD CONSTRAINT rtc_detail_fk1 FOREIGN KEY (task_version_id) REFERENCES cdm_task_detail (task_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT rtc_detail_fk2 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY ODBC;
+	ADD CONSTRAINT rtc_detail_fk2 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	ADD CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES cdm_occurrence_detail (occurrence_id)) BY ODBC;
+	ADD CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES cdm_occurrence_detail (occurrence_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-	ADD CONSTRAINT rtc_x_content_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY ODBC;
+	ADD CONSTRAINT rtc_x_content_fk1 FOREIGN KEY (content_version_id) REFERENCES &SCHEMA..cdm_content_detail (content_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-ADD CONSTRAINT rtc_x_content_fk2 FOREIGN KEY (rtc_id) REFERENCES &SCHEMA..cdm_rtc_detail (rtc_id)) BY ODBC;
+ADD CONSTRAINT rtc_x_content_fk2 FOREIGN KEY (rtc_id) REFERENCES &SCHEMA..cdm_rtc_detail (rtc_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
-	ADD CONSTRAINT segment_custom_attr_fk1 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY ODBC;
+	ADD CONSTRAINT segment_custom_attr_fk1 FOREIGN KEY (segment_version_id) REFERENCES cdm_segment_detail (segment_version_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-	ADD CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES cdm_segment_map (segment_map_version_id)) BY ODBC;
+	ADD CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES cdm_segment_map (segment_map_version_id)) BY SQLSVR;
 
 /* DISABLE FOREIGN KEY CONSTRAINTS */
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_custom_attr
-	NOCHECK CONSTRAINT activity_custom_attr_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT activity_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_campaign_custom_attr
-	NOCHECK CONSTRAINT campaign_custom_attr_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT campaign_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_map
-	NOCHECK CONSTRAINT identity_map_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT identity_map_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	NOCHECK CONSTRAINT contact_history_fk3 ) BY ODBC;
+	NOCHECK CONSTRAINT contact_history_fk3 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	NOCHECK CONSTRAINT contact_history_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT contact_history_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_contact_history
-	NOCHECK CONSTRAINT contact_history_fk2 ) BY ODBC;
+	NOCHECK CONSTRAINT contact_history_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_content_custom_attr
-NOCHECK CONSTRAINT content_custom_attr_fk1 ) BY ODBC;
+NOCHECK CONSTRAINT content_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
-	NOCHECK CONSTRAINT dyn_content_custom_attr_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT dyn_content_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_identity_attr
-	NOCHECK CONSTRAINT identity_attr_fk2 ) BY ODBC;
+	NOCHECK CONSTRAINT identity_attr_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk7 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk7 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk2 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk3 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk3 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk4 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk4 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk5 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk5 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
-	NOCHECK CONSTRAINT response_history_fk6 ) BY ODBC;
+	NOCHECK CONSTRAINT response_history_fk6 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
-	NOCHECK CONSTRAINT response_extended_attr_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT response_extended_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	NOCHECK CONSTRAINT task_detail_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT task_detail_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	NOCHECK CONSTRAINT task_detail_fk2 ) BY ODBC;
+	NOCHECK CONSTRAINT task_detail_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
-	NOCHECK CONSTRAINT task_detail_fk3 ) BY ODBC;
+	NOCHECK CONSTRAINT task_detail_fk3 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_custom_attr
-	NOCHECK CONSTRAINT task_custom_attr_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT task_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	NOCHECK CONSTRAINT activity_x_task_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT activity_x_task_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_activity_x_task
-	NOCHECK CONSTRAINT activity_x_task_fk2 ) BY ODBC;
+	NOCHECK CONSTRAINT activity_x_task_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	NOCHECK CONSTRAINT rtc_detail_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT rtc_detail_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	NOCHECK CONSTRAINT rtc_detail_fk2 ) BY ODBC;
+	NOCHECK CONSTRAINT rtc_detail_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_detail
-	NOCHECK CONSTRAINT rtc_detail_fk3 ) BY ODBC;
+	NOCHECK CONSTRAINT rtc_detail_fk3 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-	NOCHECK CONSTRAINT rtc_x_content_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT rtc_x_content_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_rtc_x_content
-NOCHECK CONSTRAINT rtc_x_content_fk2 ) BY ODBC;
+NOCHECK CONSTRAINT rtc_x_content_fk2 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
-	NOCHECK CONSTRAINT segment_custom_attr_fk1 ) BY ODBC;
+	NOCHECK CONSTRAINT segment_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-	NOCHECK CONSTRAINT segment_map_custom_attr_fk1 ) BY ODBC;	
-
-DISCONNECT FROM ODBC;
+	NOCHECK CONSTRAINT segment_map_custom_attr_fk1 ) BY SQLSVR;	
+	
+DISCONNECT FROM SQLSVR;
 QUIT;
 
 

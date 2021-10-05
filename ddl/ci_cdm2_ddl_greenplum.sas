@@ -87,7 +87,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_campaign_detail
 	campaign_status_cd   VARCHAR(3)  ,
 	campaign_type_cd     VARCHAR(3)  ,
 	campaign_folder_txt  VARCHAR(1024)  ,
-	campaign_group_sk    NUMERIC(15) NOT NULL ,
+	campaign_group_sk    NUMERIC(15)  ,
 	deployment_version_no NUMERIC(6)  ,
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
@@ -205,7 +205,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
 (
-	identifier_type_id   VARCHAR(36) NOT NULL ,
+	identifier_type_id   VARCHAR(36)  ,
 	identifier_type_desc VARCHAR(100)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  
@@ -536,9 +536,6 @@ ADD CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id,attr
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	ADD CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id,attribute_nm,content_hash_val,attribute_data_type_cd,attribute_val)) BY GREENPLM;
-
-EXECUTE (ALTER TABLE &SCHEMA..cdm_identifier_type
-	ADD CONSTRAINT  id_type_pk PRIMARY KEY (identifier_type_id)) BY GREENPLM;
 
 EXECUTE (ALTER TABLE &SCHEMA..cdm_identity_attr
 	ADD CONSTRAINT  identity_user_pk PRIMARY KEY (identity_id,identifier_type_id)) BY GREENPLM;

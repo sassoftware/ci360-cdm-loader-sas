@@ -774,7 +774,8 @@
                              optimization_backfill_flg=optimization_backfill_flg_tmp
                              external_contact_info_1_id=external_contact_info_1_id_tmp
                              external_contact_info_2_id=external_contact_info_2_id_tmp
-                             rtc_id=rtc_id_tmp)
+                             rtc_id=rtc_id_tmp
+                             updated_dttm=updated_dttm_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1379,7 +1380,8 @@
                              content_version_id = content_version_id_tmp
                              response_val_amt = response_val_amt_tmp
                              contact_id = contact_id_tmp
-                             content_hash_val = content_hash_val_tmp)
+                             content_hash_val = content_hash_val_tmp
+                             updated_dttm = updated_dttm_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1444,7 +1446,8 @@
                 retain uobs oobs;
                 set cdmmart.cdm_response_extended_attr
                     (rename=(attribute_data_type_cd=attribute_data_type_cd_tmp
-                             attribute_val=attribute_val_tmp)
+                             attribute_val=attribute_val_tmp
+                             updated_dttm=updated_dttm_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
