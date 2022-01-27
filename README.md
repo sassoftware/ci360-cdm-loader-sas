@@ -85,6 +85,11 @@ These examples show how to set the variables in cdm_launch.sas.
    %let dbpass="mypass";
    ```
 
+### Migrating to Schema 8
+If you are using CDM loader with schema 6. please update your database  to schema 8 using alter ddl file  ./ddl/ci_cdm2_alter_ddl_<dbname>.sas .
+e.g. if you are using oracle as databasee alter file is ci_cdm2_alter_ddl_oracle.sas .
+Please run the alter ddls and then run the cdm loader program.
+
 <!-- ### Troubleshooting -->
 
 
