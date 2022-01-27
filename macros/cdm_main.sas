@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------------------
+﻿/*---------------------------------------------------------------------------------------
  * Copyright © 2020, SAS Institute Inc., Cary, NC, USA.  All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
 *---------------------------------------------------------------------------------------
@@ -59,8 +59,8 @@
  *  used the first time the process is run.
  */
 
-    %let CDM_DDL_SchemaVer = 6;
-    %let CDM_CodeVersion = 2.0;
+    %let CDM_DDL_SchemaVer = 8;
+    %let CDM_CodeVersion = 3.0;
     %let CDMHistoryFile = cdm_history;
 
 /*

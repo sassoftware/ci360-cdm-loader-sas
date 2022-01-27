@@ -1,10 +1,9 @@
-/*===================================================================*/
+﻿/*===================================================================*/
 /* Enter Customer Specific Target Source Connection Values - Oracle  */
 /*===================================================================*/
-
-%let path = <Oracle TNS Entry> ;  /* From tnsnames.ora     */
-%let user = <User Name> ;         /* Oracle User/Schema    */
-%let pass = <Password> ;          /* Oracle Password       */
+%let path = "@ed01-scan.unx.sas.com:1521/exadat12c" ;  /* From tnsnames.ora     */
+%let user = cxtora5 ;         /* Oracle User/Schema    */
+%let pass = cxtora5 ;          /* Oracle Password       */
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
@@ -44,7 +43,8 @@ EXECUTE (CREATE TABLE cdm_activity_custom_attr
 	attribute_numeric_val NUMBER(17,2) NULL ,
 	attribute_dttm_val   TIMESTAMP NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	activity_id          VARCHAR2(36) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_business_context
@@ -181,7 +181,8 @@ EXECUTE (CREATE TABLE cdm_content_custom_attr
 	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR2(256) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	content_id           VARCHAR2(40) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_dyn_content_custom_attr
@@ -196,7 +197,8 @@ EXECUTE (CREATE TABLE cdm_dyn_content_custom_attr
 	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR2(256) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	content_id           VARCHAR2(40) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_identifier_type
@@ -345,7 +347,8 @@ EXECUTE (CREATE TABLE cdm_task_detail
 	business_context_id  VARCHAR2(36) NULL ,
 	source_system_cd     VARCHAR2(10) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	recurring_schedule_flg CHAR(1) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_task_custom_attr
@@ -359,7 +362,8 @@ EXECUTE (CREATE TABLE cdm_task_custom_attr
 	attribute_dttm_val   TIMESTAMP NULL ,
 	extension_attribute_nm VARCHAR2(256) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	task_id              VARCHAR2(36) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_activity_x_task
@@ -367,7 +371,9 @@ EXECUTE (CREATE TABLE cdm_activity_x_task
 	activity_version_id  VARCHAR2(36) NOT NULL ,
 	task_version_id      VARCHAR2(36) NOT NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	activity_id          VARCHAR2(36) NULL ,
+	task_id              VARCHAR2(36) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_rtc_detail
@@ -383,7 +389,9 @@ EXECUTE (CREATE TABLE cdm_rtc_detail
 	occurrence_id        VARCHAR2(36) NULL ,
 	source_system_cd     VARCHAR2(10) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	segment_id           VARCHAR2(36) NULL ,
+	task_id              VARCHAR2(36) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_rtc_x_content
@@ -394,7 +402,8 @@ EXECUTE (CREATE TABLE cdm_rtc_x_content
 	content_hash_val     VARCHAR2(32) NULL ,
 	sequence_no          INTEGER NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	content_id           VARCHAR2(40) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_segment_detail
@@ -412,7 +421,8 @@ EXECUTE (CREATE TABLE cdm_segment_detail
 	segment_status_cd    VARCHAR2(20) NULL ,
 	source_system_cd     VARCHAR2(10) NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	segment_map_id       VARCHAR2(36) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_segment_custom_attr
@@ -425,7 +435,8 @@ EXECUTE (CREATE TABLE cdm_segment_custom_attr
 	attribute_numeric_val NUMBER(17,2) NULL ,
 	attribute_dttm_val   TIMESTAMP NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	segment_id           VARCHAR2(36) NULL
 )) BY ORACLE;
 
 EXECUTE (CREATE TABLE cdm_segment_map
@@ -487,7 +498,8 @@ EXECUTE (CREATE TABLE cdm_segment_map_custom_attr
 	attribute_numeric_val NUMBER(17,2) NULL ,
 	attribute_dttm_val   TIMESTAMP NULL ,
 	updated_by_nm        VARCHAR2(60) NULL ,
-	updated_dttm         TIMESTAMP NULL 
+	updated_dttm         TIMESTAMP NULL ,
+	segment_map_id       VARCHAR2(36) NULL
 )) BY ORACLE;
 
 /*=================================================================*/

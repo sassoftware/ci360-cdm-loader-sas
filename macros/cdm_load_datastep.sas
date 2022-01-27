@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------------------
+﻿/*---------------------------------------------------------------------------------------
  *  Copyright (c) 2005-2020, SAS Institute Inc., Cary, NC, USA, All Rights Reserved
  *---------------------------------------------------------------------------------------
  *
@@ -105,7 +105,8 @@
                 set cdmmart.cdm_activity_custom_attr
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
-                             attribute_dttm_val=attribute_dttm_val_tmp));
+                             attribute_dttm_val=attribute_dttm_val_tmp
+							 activity_id=activity_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -122,6 +123,7 @@
                     attribute_character_val = attribute_character_val_tmp;
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
+					activity_id=activity_id_tmp;
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
@@ -315,7 +317,8 @@
                 set cdmmart.cdm_segment_map_custom_attr
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
-                             attribute_dttm_val=attribute_dttm_val_tmp));
+                             attribute_dttm_val=attribute_dttm_val_tmp
+							 segment_map_id=segment_map_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -332,6 +335,7 @@
                     attribute_character_val = attribute_character_val_tmp;
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
+					segment_map_id=segment_map_id_tmp;
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
@@ -431,7 +435,8 @@
                              segment_category_nm=segment_category_nm_tmp
                              segment_cd=segment_cd_tmp
                              segment_src_nm=segment_src_nm_tmp
-                             segment_status_cd=segment_status_cd_tmp));
+                             segment_status_cd=segment_status_cd_tmp
+							 segment_map_id=segment_map_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -454,6 +459,7 @@
                     segment_cd=segment_cd_tmp;
                     segment_src_nm=segment_src_nm_tmp;
                     segment_status_cd=segment_status_cd_tmp;
+					segment_map_id=segment_map_id_tmp;
                     source_system_cd="&source_system_cd";
                     updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
@@ -523,7 +529,8 @@
                              staged_flg = staged_flg_tmp
                              contact_channel_cd = contact_channel_cd_tmp
                              campaign_id = campaign_id_tmp
-                             business_context_id = business_context_id_tmp));
+                             business_context_id = business_context_id_tmp
+							 recurring_schedule_flg=recurring_schedule_flg_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -574,6 +581,7 @@
                     contact_channel_cd = contact_channel_cd_tmp;
                     campaign_id = campaign_id_tmp;
                     business_context_id = business_context_id_tmp;
+					recurring_schedule_flg=recurring_schedule_flg_tmp;
                     source_system_cd = "&source_system_cd";
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
@@ -614,7 +622,9 @@
                              task_version_id=task_version_id_tmp
                              execution_status_cd=sexecution_status_cd_tmp
                              deleted_flg=deleted_flg_tmp
-                             occurrence_id=occurrence_id_tmp)
+                             occurrence_id=occurrence_id_tmp
+							 segment_id=segment_id_tmp
+							 task_id=task_id_tmp)
                              where=(task_version_id_tmp ne ""));
 
                 if _n_ = 1 then do;
@@ -636,6 +646,8 @@
                     execution_status_cd=sexecution_status_cd_tmp;
                     deleted_flg=deleted_flg_tmp;
                     occurrence_id=occurrence_id_tmp;
+					segment_id=segment_id_tmp;
+					task_id=task_id_tmp;
                     source_system_cd="&source_system_cd";
                     updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
@@ -774,8 +786,7 @@
                              optimization_backfill_flg=optimization_backfill_flg_tmp
                              external_contact_info_1_id=external_contact_info_1_id_tmp
                              external_contact_info_2_id=external_contact_info_2_id_tmp
-                             rtc_id=rtc_id_tmp
-                             updated_dttm=updated_dttm_tmp)
+                             rtc_id=rtc_id_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -910,7 +921,8 @@
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
                              attribute_dttm_val=attribute_dttm_val_tmp
-                             extension_attribute_nm=extension_attribute_nm_tmp));
+                             extension_attribute_nm=extension_attribute_nm_tmp
+							 content_id=content_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -928,6 +940,7 @@
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
                     extension_attribute_nm = extension_attribute_nm_tmp;
+					content_id=content_id_tmp;
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
@@ -1108,7 +1121,8 @@
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
                              attribute_dttm_val=attribute_dttm_val_tmp
-                             extension_attribute_nm=extension_attribute_nm_tmp));
+                             extension_attribute_nm=extension_attribute_nm_tmp
+							 task_id=task_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1126,6 +1140,7 @@
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
                     extension_attribute_nm = extension_attribute_nm_tmp;
+					task_id=task_id_tmp;
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
@@ -1157,7 +1172,9 @@
 
             data dblib.cdm_activity_x_task;
                 retain uobs oobs;
-                set cdmmart.cdm_activity_x_task;
+                set cdmmart.cdm_activity_x_task
+					(rename=(activity_id=activity_id_tmp
+                 	task_id=task_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1170,6 +1187,8 @@
                     (cntllev=rec dbkey=(activity_version_id task_version_id)) key=dbkey;
 
                 if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
+					activity_id=activity_id_tmp;
+					task_id=task_id_tmp;
                     updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
@@ -1218,7 +1237,8 @@
                     (rename=(rtc_id=rtc_id_tmp
                              content_version_id=content_version_id_tmp
                              content_hash_val=content_hash_val_tmp
-                             sequence_no=sequence_no_tmp)
+                             sequence_no=sequence_no_tmp
+							 content_id=content_id_tmp)
                              where=(content_version_id_tmp ne "" ));
 
                 if _n_ = 1 then do;
@@ -1236,6 +1256,7 @@
                     content_version_id=content_version_id_tmp;
                     content_hash_val=content_hash_val_tmp;
                     sequence_no=sequence_no_tmp;
+					content_id=content_id_tmp;
                     updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 
@@ -1270,7 +1291,8 @@
                 set cdmmart.cdm_segment_custom_attr
                     (rename=(attribute_character_val=attribute_character_val_tmp
                              attribute_numeric_val=attribute_numeric_val_tmp
-                             attribute_dttm_val=attribute_dttm_val_tmp));
+                             attribute_dttm_val=attribute_dttm_val_tmp
+ 							 segment_id=segment_id_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -1287,6 +1309,7 @@
                     attribute_character_val = attribute_character_val_tmp;
                     attribute_numeric_val = attribute_numeric_val_tmp;
                     attribute_dttm_val = attribute_dttm_val_tmp;
+					segment_id=segment_id_tmp;
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 
@@ -1380,8 +1403,7 @@
                              content_version_id = content_version_id_tmp
                              response_val_amt = response_val_amt_tmp
                              contact_id = contact_id_tmp
-                             content_hash_val = content_hash_val_tmp
-                             updated_dttm = updated_dttm_tmp)
+                             content_hash_val = content_hash_val_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1446,8 +1468,7 @@
                 retain uobs oobs;
                 set cdmmart.cdm_response_extended_attr
                     (rename=(attribute_data_type_cd=attribute_data_type_cd_tmp
-                             attribute_val=attribute_val_tmp
-                             updated_dttm=updated_dttm_tmp)
+                             attribute_val=attribute_val_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
