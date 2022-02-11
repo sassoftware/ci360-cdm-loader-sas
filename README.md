@@ -90,8 +90,8 @@ If you are using CDM loader with schema 6. please update your database  to schem
 e.g. if you are using oracle as databasee alter file is ci_cdm2_alter_ddl_oracle.sas .
 Please run the alter ddls and then run the cdm loader program.
 
-<!-- ### Troubleshooting -->
-
+### Troubleshooting
+The Postgres DDL, including Aurora Postgres, need to be run as a superuser to avoid permission error while executing disable trigger code:
 
 ## Contributing
 
