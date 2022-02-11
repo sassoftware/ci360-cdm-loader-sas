@@ -47,7 +47,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 	attribute_numeric_val NUMBER(17,2)  ,
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	activity_id          VARCHAR(36)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
@@ -184,7 +185,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	extension_attribute_nm VARCHAR(256)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	content_id           VARCHAR(40)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
@@ -199,7 +201,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	extension_attribute_nm VARCHAR(256)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	content_id           VARCHAR(40)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
@@ -348,7 +351,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	business_context_id  VARCHAR(36)  ,
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	recurring_schedule_flg CHAR(1)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
@@ -362,7 +366,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	extension_attribute_nm VARCHAR(256)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	task_id              VARCHAR(36)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
@@ -370,7 +375,9 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 	activity_version_id  VARCHAR(36) NOT NULL ,
 	task_version_id      VARCHAR(36) NOT NULL ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	activity_id          VARCHAR(36)  ,
+	task_id              VARCHAR(36)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
@@ -386,7 +393,9 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 	occurrence_id        VARCHAR(36)  ,
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_id           VARCHAR(36)  ,
+	task_id              VARCHAR(36)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
@@ -397,7 +406,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 	content_hash_val     VARCHAR(32)  ,
 	sequence_no          INTEGER  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	content_id           VARCHAR(40)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
@@ -415,7 +425,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
 	segment_status_cd    VARCHAR(20)  ,
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_map_id       VARCHAR(36)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
@@ -428,7 +439,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 	attribute_numeric_val NUMBER(17,2)  ,
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	segment_id           VARCHAR(36)  
 )) BY SASIOSNF;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map
@@ -490,7 +502,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 	attribute_numeric_val NUMBER(17,2)  ,
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP ,
+	segment_map_id       VARCHAR(36)  
 )) BY SASIOSNF;
 
 /*=================================================================*/

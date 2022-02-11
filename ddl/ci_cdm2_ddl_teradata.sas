@@ -126,6 +126,7 @@ EXECUTE (CREATE TABLE cdm_task_detail
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	recurring_schedule_flg CHAR(1) ,
 CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES WITH NO CHECK OPTION cdm_campaign_detail (campaign_id),
 CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES WITH NO CHECK OPTION cdm_business_context (business_context_id),
 CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES WITH NO CHECK OPTION cdm_contact_channel (contact_channel_cd)
@@ -147,6 +148,7 @@ EXECUTE (CREATE TABLE cdm_task_custom_attr
 	extension_attribute_nm VARCHAR(256)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	task_id              VARCHAR(36) ,
 CONSTRAINT  task_custom_attribute_pk PRIMARY KEY (task_version_id,attribute_nm,attribute_data_type_cd,attribute_val),
 CONSTRAINT task_custom_attr_fk1 FOREIGN KEY (task_version_id) REFERENCES WITH NO CHECK OPTION cdm_task_detail (task_version_id)
  ) 
@@ -182,6 +184,8 @@ EXECUTE (CREATE TABLE cdm_activity_x_task
 	task_version_id      VARCHAR(36) NOT NULL ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	activity_id          VARCHAR(36)  ,
+	task_id              VARCHAR(36) ,
 CONSTRAINT activity_x_task_pk PRIMARY KEY (activity_version_id,task_version_id),
 CONSTRAINT activity_x_task_fk1 FOREIGN KEY (activity_version_id) REFERENCES WITH NO CHECK OPTION cdm_activity_detail (activity_version_id),
 CONSTRAINT activity_x_task_fk2 FOREIGN KEY (task_version_id) REFERENCES WITH NO CHECK OPTION cdm_task_detail (task_version_id)
@@ -317,7 +321,8 @@ EXECUTE (CREATE TABLE cdm_segment_detail
 	segment_status_cd    VARCHAR(20)  ,
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_map_id       VARCHAR(36)  
  ) 
         UNIQUE PRIMARY INDEX segment_detail_pi 
  ( 
@@ -357,6 +362,8 @@ EXECUTE (CREATE TABLE cdm_rtc_detail
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	segment_id           VARCHAR(36)  ,
+	task_id              VARCHAR(36) ,
 CONSTRAINT rtc_detail_fk1 FOREIGN KEY (task_version_id) REFERENCES WITH NO CHECK OPTION cdm_task_detail (task_version_id),
 CONSTRAINT rtc_detail_fk2 FOREIGN KEY (segment_version_id) REFERENCES WITH NO CHECK OPTION cdm_segment_detail (segment_version_id),
 CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES WITH NO CHECK OPTION cdm_occurrence_detail (occurrence_id)
@@ -549,6 +556,7 @@ EXECUTE (CREATE TABLE cdm_content_custom_attr
 	extension_attribute_nm VARCHAR(256)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	content_id           VARCHAR(40) ,
 CONSTRAINT  content_custom_attribute_pk PRIMARY KEY (content_version_id,attribute_nm,attribute_data_type_cd,attribute_val),
 CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES WITH NO CHECK OPTION cdm_content_detail (content_version_id)
  ) 
@@ -570,6 +578,7 @@ EXECUTE (CREATE TABLE cdm_dyn_content_custom_attr
 	extension_attribute_nm VARCHAR(256)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	content_id           VARCHAR(40) ,
 CONSTRAINT  dynamic_content_custom_attr_pk PRIMARY KEY (content_version_id,attribute_nm,content_hash_val,attribute_data_type_cd,attribute_val),
 CONSTRAINT dyn_content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES WITH NO CHECK OPTION cdm_content_detail (content_version_id)
  ) 
@@ -587,6 +596,7 @@ EXECUTE (CREATE TABLE cdm_rtc_x_content
 	sequence_no          INTEGER  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	content_id           VARCHAR(40) ,
 CONSTRAINT  rtc_x_content_pk PRIMARY KEY (rtc_x_content_sk),
 CONSTRAINT rtc_x_content_fk1 FOREIGN KEY (content_version_id) REFERENCES WITH NO CHECK OPTION cdm_content_detail (content_version_id),
 CONSTRAINT rtc_x_content_fk2 FOREIGN KEY (rtc_id) REFERENCES WITH NO CHECK OPTION cdm_rtc_detail (rtc_id)
@@ -607,6 +617,7 @@ EXECUTE (CREATE TABLE cdm_segment_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	segment_id           VARCHAR(36) ,
 CONSTRAINT  segment_custom_attr_pk PRIMARY KEY (segment_version_id,attribute_nm,attribute_data_type_cd,attribute_val),
 CONSTRAINT segment_custom_attr_fk1 FOREIGN KEY (segment_version_id) REFERENCES WITH NO CHECK OPTION cdm_segment_detail (segment_version_id)
  ) 
@@ -626,6 +637,7 @@ EXECUTE (CREATE TABLE cdm_segment_map_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	segment_map_id       VARCHAR(36) ,
 CONSTRAINT  segment_map_custom_attr_pk PRIMARY KEY (segment_map_version_id,attribute_nm,attribute_data_type_cd,attribute_val),
 CONSTRAINT segment_map_custom_attr_fk1 FOREIGN KEY (segment_map_version_id) REFERENCES WITH NO CHECK OPTION cdm_segment_map (segment_map_version_id) ) 
         PRIMARY INDEX segment_map_custom_attr_pi 
@@ -644,6 +656,7 @@ EXECUTE (CREATE TABLE cdm_activity_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	activity_id          VARCHAR(36) ,
 CONSTRAINT  activity_custom_attr_pk PRIMARY KEY (activity_version_id,attribute_nm,attribute_data_type_cd,attribute_val),
 CONSTRAINT activity_custom_attr_fk1 FOREIGN KEY (activity_version_id) REFERENCES WITH NO CHECK OPTION cdm_activity_detail (activity_version_id)
  ) 

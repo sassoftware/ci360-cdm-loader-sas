@@ -45,7 +45,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 	attribute_numeric_val NUMERIC(17,2) NULL ,
 	attribute_dttm_val   DATETIME2 NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	activity_id          VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
@@ -182,7 +183,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 	attribute_dttm_val   DATETIME2 NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	content_id           VARCHAR(40) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
@@ -197,7 +199,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	attribute_dttm_val   DATETIME2 NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	content_id           VARCHAR(40) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
@@ -346,7 +349,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	business_context_id  VARCHAR(36) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	recurring_schedule_flg CHAR(1) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
@@ -360,7 +364,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 	attribute_dttm_val   DATETIME2 NULL ,
 	extension_attribute_nm VARCHAR(256) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	task_id              VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
@@ -368,7 +373,9 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 	activity_version_id  VARCHAR(36) NOT NULL ,
 	task_version_id      VARCHAR(36) NOT NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	activity_id          VARCHAR(36) NULL ,
+	task_id              VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
@@ -384,7 +391,9 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 	occurrence_id        VARCHAR(36) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	segment_id           VARCHAR(36) NULL ,
+	task_id              VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
@@ -395,7 +404,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 	content_hash_val     VARCHAR(32) NULL ,
 	sequence_no          INTEGER NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	content_id           VARCHAR(40) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
@@ -413,7 +423,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
 	segment_status_cd    VARCHAR(20) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	segment_map_id       VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
@@ -426,7 +437,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 	attribute_numeric_val NUMERIC(17,2) NULL ,
 	attribute_dttm_val   DATETIME2 NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	segment_id           VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map
@@ -488,7 +500,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 	attribute_numeric_val NUMERIC(17,2) NULL ,
 	attribute_dttm_val   DATETIME2 NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	segment_map_id       VARCHAR(36) NULL 
 )) BY SQLSVR;
 
 /*=================================================================*/

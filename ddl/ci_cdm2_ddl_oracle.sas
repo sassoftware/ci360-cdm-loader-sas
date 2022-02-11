@@ -1,9 +1,10 @@
-﻿/*===================================================================*/
+/*===================================================================*/
 /* Enter Customer Specific Target Source Connection Values - Oracle  */
 /*===================================================================*/
-%let path = "@ed01-scan.unx.sas.com:1521/exadat12c" ;  /* From tnsnames.ora     */
-%let user = cxtora5 ;         /* Oracle User/Schema    */
-%let pass = cxtora5 ;          /* Oracle Password       */
+
+%let path = <Oracle TNS Entry> ;  /* From tnsnames.ora     */
+%let user = <User Name> ;         /* Oracle User/Schema    */
+%let pass = <Password> ;          /* Oracle Password       */
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */

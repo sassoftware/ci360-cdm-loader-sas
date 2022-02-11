@@ -44,7 +44,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_custom_attr
 	attribute_numeric_val NUMERIC  ,
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	activity_id          STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_business_context
@@ -181,7 +182,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	extension_attribute_nm STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	content_id           STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
@@ -196,7 +198,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	extension_attribute_nm STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	content_id           STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_identifier_type
@@ -345,7 +348,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	business_context_id  STRING  ,
 	source_system_cd     STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	recurring_schedule_flg STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
@@ -359,7 +363,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
 	attribute_dttm_val   TIMESTAMP  ,
 	extension_attribute_nm STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	task_id              STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
@@ -367,7 +372,9 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_activity_x_task
 	activity_version_id  STRING NOT NULL ,
 	task_version_id      STRING NOT NULL ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	activity_id          STRING  ,
+	task_id              STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
@@ -383,7 +390,9 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_detail
 	occurrence_id        STRING  ,
 	source_system_cd     STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_id           STRING  ,
+	task_id              STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
@@ -394,7 +403,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 	content_hash_val     STRING  ,
 	sequence_no          INT64  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	content_id           STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
@@ -412,7 +422,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_detail
 	segment_status_cd    STRING  ,
 	source_system_cd     STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_map_id       STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
@@ -425,7 +436,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_custom_attr
 	attribute_numeric_val NUMERIC  ,
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_id           STRING  
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map
@@ -487,7 +499,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_map_custom_attr
 	attribute_numeric_val NUMERIC  ,
 	attribute_dttm_val   TIMESTAMP  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	segment_map_id       STRING  
 )) BY SASIOGBQ;
 
 DISCONNECT FROM SASIOGBQ;
