@@ -37,6 +37,7 @@
 
             if attribute_val = "" then do;
                 if attribute_numeric_val = . then anv = "";
+				else anv = strip(put(attribute_numeric_val, 19.));
                 attribute_val = coalescec( attribute_character_val, anv, put(attribute_dttm_val, e8601dz24.3));
             end;
         run;
@@ -51,6 +52,7 @@
 
             if attribute_val = "" then do;
                 if attribute_numeric_val = . then anv = "";
+				else anv = strip(put(attribute_numeric_val, 19.));
                 attribute_val = coalescec( attribute_character_val, anv, put(attribute_dttm_val, e8601dz24.3));
             end;
         run;
@@ -65,6 +67,7 @@
 
             if attribute_val = "" then do;
                 if attribute_numeric_val = . then anv = "";
+				else anv = strip(put(attribute_numeric_val, 19.));
                 attribute_val = coalescec( attribute_character_val, anv, put(attribute_dttm_val, e8601dz24.3));
             end;
         run;
@@ -79,6 +82,7 @@
 
             if attribute_val = "" then do;
                 if attribute_numeric_val = . then anv = "";
+				else anv = strip(put(attribute_numeric_val, 19.));
                 attribute_val = coalescec( attribute_character_val, anv, put(attribute_dttm_val, e8601dz24.3));
             end;
         run;
@@ -93,6 +97,7 @@
 
             if attribute_val = "" then do;
                 if attribute_numeric_val = . then anv = "";
+				else anv = strip(put(attribute_numeric_val, 19.));
                 attribute_val = coalescec( attribute_character_val, anv, put(attribute_dttm_val, e8601dz24.3));
             end;
         run;
