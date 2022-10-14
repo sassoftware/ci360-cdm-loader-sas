@@ -82,60 +82,63 @@ EXECUTE (CREATE TABLE cdm_contact_channel
         contact_channel_cd 
  )) BY TERADATA;
 
-EXECUTE (CREATE TABLE cdm_task_detail
-(
-	task_version_id      VARCHAR(36) NOT NULL ,
-	task_id              VARCHAR(36)  ,
-	valid_from_dttm      TIMESTAMP NOT NULL ,
-	valid_to_dttm        TIMESTAMP  ,
-	task_nm              VARCHAR(256)  ,
-	task_desc            VARCHAR(32767)  ,
-	task_type_nm         VARCHAR(40)  ,
-	task_status_cd       VARCHAR(20)  ,
-	task_subtype_nm      VARCHAR(100)  ,
-	task_cd              VARCHAR(60)  ,
-	task_delivery_type_nm VARCHAR(60)  ,
-	active_flg           CHAR(1)  ,
-	saved_flg            CHAR(1)  ,
-	published_flg        CHAR(1)  ,
-	owner_nm             VARCHAR(40)  ,
-	modified_status_cd   VARCHAR(20)  ,
-	created_user_nm      VARCHAR(40)  ,
-	created_dt           DATE  ,
-	scheduled_start_dttm TIMESTAMP  ,
-	scheduled_end_dttm   TIMESTAMP  ,
-	scheduled_flg        CHAR(1)  ,
-	maximum_period_expression_cnt INTEGER  ,
-	limit_period_unit_cnt INTEGER  ,
-	limit_by_total_impression_flg CHAR(1)  ,
-	export_dttm          TIMESTAMP  ,
-	update_contact_history_flg CHAR(1)  ,
-	subject_type_nm      VARCHAR(60)  ,
-	min_budget_offer_amt NUMERIC(14,2)  ,
-	max_budget_offer_amt NUMERIC(14,2)  ,
-	min_budget_amt       NUMERIC(14,2)  ,
-	max_budget_amt       NUMERIC(14,2)  ,
-	budget_unit_cost_amt NUMERIC(14,2)  ,
-	recurr_type_cd       VARCHAR(3)  ,
-	budget_unit_usage_amt NUMERIC(14,2)  ,
-	standard_reply_flg   CHAR(1)  ,
-	staged_flg           CHAR(1)  ,
-	contact_channel_cd   VARCHAR(60)  ,
-	campaign_id          VARCHAR(36)  ,
-	business_context_id  VARCHAR(36)  ,
-	source_system_cd     VARCHAR(10)  ,
-	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  ,
-	recurring_schedule_flg CHAR(1) ,
-CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES WITH NO CHECK OPTION cdm_campaign_detail (campaign_id),
-CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES WITH NO CHECK OPTION cdm_business_context (business_context_id),
-CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES WITH NO CHECK OPTION cdm_contact_channel (contact_channel_cd)
- ) 
-        UNIQUE PRIMARY INDEX task_detail_pi 
- ( 
-        task_version_id 
+ EXECUTE (CREATE TABLE cdm_task_detail
+ (
+ 	task_version_id      VARCHAR(36) NOT NULL ,
+ 	task_id              VARCHAR(36)  ,
+ 	valid_from_dttm      TIMESTAMP NOT NULL ,
+ 	valid_to_dttm        TIMESTAMP  ,
+ 	task_nm              VARCHAR(256)  ,
+ 	task_desc            VARCHAR(32767)  ,
+ 	task_type_nm         VARCHAR(40)  ,
+ 	task_status_cd       VARCHAR(20)  ,
+ 	task_subtype_nm      VARCHAR(100)  ,
+ 	task_cd              VARCHAR(60)  ,
+ 	task_delivery_type_nm VARCHAR(60)  ,
+ 	active_flg           CHAR(1)  ,
+ 	saved_flg            CHAR(1)  ,
+ 	published_flg        CHAR(1)  ,
+ 	owner_nm             VARCHAR(40)  ,
+ 	modified_status_cd   VARCHAR(20)  ,
+ 	created_user_nm      VARCHAR(40)  ,
+ 	created_dt           DATE  ,
+ 	scheduled_start_dttm TIMESTAMP  ,
+ 	scheduled_end_dttm   TIMESTAMP  ,
+ 	scheduled_flg        CHAR(1)  ,
+ 	maximum_period_expression_cnt INTEGER  ,
+ 	limit_period_unit_cnt INTEGER  ,
+ 	limit_by_total_impression_flg CHAR(1)  ,
+ 	export_dttm          TIMESTAMP  ,
+ 	update_contact_history_flg CHAR(1)  ,
+ 	subject_type_nm      VARCHAR(60)  ,
+ 	min_budget_offer_amt NUMERIC(14,2)  ,
+ 	max_budget_offer_amt NUMERIC(14,2)  ,
+ 	min_budget_amt       NUMERIC(14,2)  ,
+ 	max_budget_amt       NUMERIC(14,2)  ,
+ 	budget_unit_cost_amt NUMERIC(14,2)  ,
+ 	recurr_type_cd       VARCHAR(3)  ,
+ 	budget_unit_usage_amt NUMERIC(14,2)  ,
+ 	standard_reply_flg   CHAR(1)  ,
+ 	staged_flg           CHAR(1)  ,
+ 	contact_channel_cd   VARCHAR(60)  ,
+ 	campaign_id          VARCHAR(36)  ,
+ 	business_context_id  VARCHAR(36)  ,
+ 	source_system_cd     VARCHAR(10)  ,
+ 	updated_by_nm        VARCHAR(60)  ,
+ 	updated_dttm         TIMESTAMP  ,
+ 	recurring_schedule_flg CHAR(1) ,
+ 	control_group_action_nm VARCHAR(65)  ,
+	stratified_sampling_action_nm VARCHAR(65)  ,
+	segment_tests_flg    CHAR(1) ,
+ CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES WITH NO CHECK OPTION cdm_campaign_detail (campaign_id),
+ CONSTRAINT task_detail_fk2 FOREIGN KEY (business_context_id) REFERENCES WITH NO CHECK OPTION cdm_business_context (business_context_id),
+ CONSTRAINT task_detail_fk3 FOREIGN KEY (contact_channel_cd) REFERENCES WITH NO CHECK OPTION cdm_contact_channel (contact_channel_cd)
+  ) 
+         UNIQUE PRIMARY INDEX task_detail_pi 
+  ( 
+         task_version_id 
  )) BY TERADATA;
-
+ 
 EXECUTE (CREATE TABLE cdm_task_custom_attr
 (
 	task_version_id      VARCHAR(36) NOT NULL ,
@@ -226,6 +229,42 @@ EXECUTE (CREATE TABLE cdm_response_type
         UNIQUE PRIMARY INDEX response_type_pi 
  ( 
         response_type_cd 
+ )) BY TERADATA;
+ 
+EXECUTE (CREATE TABLE cdm_segment_test
+(
+	test_cd              VARCHAR(60) NOT NULL ,
+	task_version_id      VARCHAR(36) NOT NULL ,
+	task_id              VARCHAR(36) NOT NULL ,
+	test_nm              VARCHAR(65)  ,
+	test_type_nm         VARCHAR(10)  ,
+	test_enabled_flg     CHAR(1)  ,
+	test_sizing_type_nm  VARCHAR(65)  ,
+	test_cnt             INTEGER  ,
+	test_pct             NUMERIC(5,2)  ,
+	stratified_sampling_flg CHAR(1)  ,
+	stratified_samp_criteria_txt VARCHAR(1024)  ,
+	updated_dttm         TIMESTAMP  ,
+CONSTRAINT  segment_test_pk PRIMARY KEY (test_cd,task_version_id,task_id)
+) 
+        PRIMARY INDEX segment_test_pi 
+ ( 
+        test_cd 
+ )) BY TERADATA;
+ 
+EXECUTE (CREATE TABLE cdm_segment_test_x_segment
+(
+	test_cd              VARCHAR(60) NOT NULL ,
+	task_version_id      VARCHAR(36) NOT NULL ,
+	task_id              VARCHAR(36) NOT NULL ,
+	segment_id           VARCHAR(36)  ,
+	updated_dttm         TIMESTAMP  ,
+CONSTRAINT segment_test_x_segment_pk PRIMARY KEY (test_cd,task_version_id,task_id),
+CONSTRAINT segment_test_x_segment_fk1 FOREIGN KEY (test_cd,task_version_id,task_id) REFERENCES WITH NO CHECK OPTION cdm_segment_test (test_cd,task_version_id,task_id)
+) 
+        PRIMARY INDEX segment_test_x_segment_pi 
+ ( 
+        test_cd 
  )) BY TERADATA;
 
 EXECUTE (CREATE TABLE cdm_identity_type
@@ -452,6 +491,7 @@ EXECUTE (CREATE TABLE cdm_contact_history
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
+	control_group_flg    CHAR(1) ,
 CONSTRAINT contact_history_fk3 FOREIGN KEY (identity_id) REFERENCES WITH NO CHECK OPTION cdm_identity_map (identity_id),
 CONSTRAINT contact_history_fk1 FOREIGN KEY (rtc_id) REFERENCES WITH NO CHECK OPTION cdm_rtc_detail (rtc_id),
 CONSTRAINT contact_history_fk2 FOREIGN KEY (contact_status_cd) REFERENCES WITH NO CHECK OPTION cdm_contact_status (contact_status_cd)
@@ -482,7 +522,8 @@ EXECUTE (CREATE TABLE cdm_response_history
 	contact_id           VARCHAR(36)  ,
 	content_hash_val     VARCHAR(32)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP ,  
+	updated_dttm         TIMESTAMP ,
+	properties_map_doc   VARCHAR(4000) ,
 CONSTRAINT response_history_fk7 FOREIGN KEY (response_type_cd) REFERENCES WITH NO CHECK OPTION cdm_response_type (response_type_cd),
 CONSTRAINT response_history_fk1 FOREIGN KEY (identity_id) REFERENCES WITH NO CHECK OPTION cdm_identity_map (identity_id),
 CONSTRAINT response_history_fk2 FOREIGN KEY (rtc_id) REFERENCES WITH NO CHECK OPTION cdm_rtc_detail (rtc_id),

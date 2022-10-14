@@ -1,7 +1,7 @@
 
-/*====================================================================*/
-/* Enter Customer Specific Target Source Connection Values - Postgres */
-/*====================================================================*/
+/*===========================================================================*/
+/* Enter Customer Specific Target Source Connection Values - Aurora Postgres */
+/*===========================================================================*/
 
 %let server = <Server> ;          /* Postgres Server         */
 %let port = <Port> ;              /* Postgres Port           */

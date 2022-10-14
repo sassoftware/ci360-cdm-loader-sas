@@ -79,6 +79,10 @@ EXECUTE (DROP TABLE &SCHEMA..cdm_identity_type) BY ODBC;
 
 EXECUTE (DROP TABLE &SCHEMA..cdm_response_type) BY ODBC;
 
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test_x_segment) BY ODBC;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test) BY ODBC;
+
 DISCONNECT FROM ODBC;
 QUIT;
 

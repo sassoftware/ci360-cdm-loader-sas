@@ -80,6 +80,10 @@ EXECUTE (DROP TABLE &SCHEMA..cdm_identity_type) BY OLEDB;
 
 EXECUTE (DROP TABLE &SCHEMA..cdm_response_type) BY OLEDB;
 
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test_x_segment) BY OLEDB;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test) BY OLEDB;
+
 DISCONNECT FROM OLEDB;
 QUIT;
 

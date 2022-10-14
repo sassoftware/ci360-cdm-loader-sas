@@ -79,6 +79,10 @@ EXECUTE (DROP TABLE cdm_identity_type) BY TERADATA;
 
 EXECUTE (DROP TABLE cdm_response_type) BY TERADATA;
 
+EXECUTE (DROP TABLE cdm_segment_test_x_segment) BY TERADATA;
+
+EXECUTE (DROP TABLE cdm_segment_test) BY TERADATA;
+
 DISCONNECT FROM TERADATA;
 QUIT;
 

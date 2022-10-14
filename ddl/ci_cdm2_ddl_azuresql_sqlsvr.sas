@@ -128,7 +128,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	contact_id           VARCHAR(36) NOT NULL ,
 	identity_id          VARCHAR(36) NOT NULL ,
 	contact_nm           VARCHAR(256) NULL ,
-	contact_dt           DATE NULL ,
+	contact_dt           DATETIME2 NULL ,
 	contact_dttm         DATETIME2 NULL ,
 	contact_status_cd    VARCHAR(3) NULL ,
 	optimization_backfill_flg CHAR(1) NULL ,
@@ -137,7 +137,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	rtc_id               VARCHAR(36) NULL ,
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	control_group_flg    CHAR(1) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
@@ -276,7 +277,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 	contact_id           VARCHAR(36) NULL ,
 	content_hash_val     VARCHAR(32) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
-	updated_dttm         DATETIME2 NULL 
+	updated_dttm         DATETIME2 NULL ,
+	properties_map_doc   VARCHAR(4000) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
@@ -306,6 +308,31 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_type
 	updated_dttm         DATETIME2 NULL 
 )) BY SQLSVR;
 
+EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_test
+(
+	test_cd              VARCHAR(60) NOT NULL ,
+	task_version_id      VARCHAR(36) NOT NULL ,
+	task_id              VARCHAR(36) NOT NULL ,
+	test_nm              VARCHAR(65) NULL ,
+	test_type_nm         VARCHAR(10) NULL ,
+	test_enabled_flg     CHAR(1) NULL ,
+	test_sizing_type_nm  VARCHAR(65) NULL ,
+	test_cnt             INTEGER NULL ,
+	test_pct             NUMERIC(5,2) NULL ,
+	stratified_sampling_flg CHAR(1) NULL ,
+	stratified_samp_criteria_txt VARCHAR(1024) NULL ,
+	updated_dttm         DATETIME2 NULL 
+)) BY SQLSVR;
+
+EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_test_x_segment
+(
+	test_cd              VARCHAR(60) NOT NULL ,
+	task_version_id      VARCHAR(36) NOT NULL ,
+	task_id              VARCHAR(36) NOT NULL ,
+	segment_id           VARCHAR(36) NULL ,
+	updated_dttm         DATETIME2 NULL 
+)) BY SQLSVR;
+
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 (
 	task_version_id      VARCHAR(36) NOT NULL ,
@@ -325,7 +352,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	owner_nm             VARCHAR(40) NULL ,
 	modified_status_cd   VARCHAR(20) NULL ,
 	created_user_nm      VARCHAR(40) NULL ,
-	created_dt           DATE NULL ,
+	created_dt           DATETIME2 NULL ,
 	scheduled_start_dttm DATETIME2 NULL ,
 	scheduled_end_dttm   DATETIME2 NULL ,
 	scheduled_flg        CHAR(1) NULL ,
@@ -350,7 +377,10 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	source_system_cd     VARCHAR(10) NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
 	updated_dttm         DATETIME2 NULL ,
-	recurring_schedule_flg CHAR(1) NULL 
+	recurring_schedule_flg CHAR(1) NULL ,
+	control_group_action_nm VARCHAR(65) NULL ,
+	stratified_sampling_action_nm VARCHAR(65) NULL ,
+	segment_tests_flg    CHAR(1) NULL 
 )) BY SQLSVR;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
@@ -571,6 +601,12 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_lookup
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_type
 	ADD CONSTRAINT  response_type_pk PRIMARY KEY (response_type_cd ASC)) BY SQLSVR;
+	
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test
+	ADD CONSTRAINT  segment_test_pk PRIMARY KEY (test_cd ASC,task_version_id ASC,task_id ASC)) BY SQLSVR;
+	
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test_x_segment
+	ADD CONSTRAINT  segment_test_x_segment_pk PRIMARY KEY (test_cd ASC,task_version_id ASC,task_id ASC)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
 	ADD CONSTRAINT  task_pk PRIMARY KEY (task_version_id ASC)) BY SQLSVR;
@@ -654,6 +690,9 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
 	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test_x_segment
+	ADD CONSTRAINT segment_test_x_segment_fk1 FOREIGN KEY (test_cd, task_version_id, task_id) REFERENCES cdm_segment_test (test_cd, task_version_id, task_id)) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
 	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY SQLSVR;
@@ -784,7 +823,10 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_custom_attr
 	NOCHECK CONSTRAINT segment_custom_attr_fk1 ) BY SQLSVR;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_map_custom_attr
-	NOCHECK CONSTRAINT segment_map_custom_attr_fk1 ) BY SQLSVR;	
+	NOCHECK CONSTRAINT segment_map_custom_attr_fk1 ) BY SQLSVR;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test_x_segment
+	NOCHECK CONSTRAINT segment_test_x_segment_fk1 ) BY SQLSVR;
 	
 DISCONNECT FROM SQLSVR;
 QUIT;
