@@ -8,8 +8,8 @@
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
-/*  Note:  This code Drops the CI360 Common Data Model 2.0        */
-/*         tables and constraints.                                  */
+/*  Note:  This code Drops the CI360 Common Data Model 2.0          */
+/*         tables to align with Schema10 modifications.             */
 /*                                                                  */
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
@@ -76,6 +76,10 @@ EXECUTE (DROP TABLE &SCHEMA..cdm_identity_map) BY SASIOGBQ;
 EXECUTE (DROP TABLE &SCHEMA..cdm_identity_type) BY SASIOGBQ;
 
 EXECUTE (DROP TABLE &SCHEMA..cdm_response_type) BY SASIOGBQ;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test_x_segment) BY SASIOGBQ;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test) BY SASIOGBQ;
 
 DISCONNECT FROM SASIOGBQ;
 QUIT;
