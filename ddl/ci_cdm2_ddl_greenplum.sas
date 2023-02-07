@@ -140,7 +140,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	rtc_id               VARCHAR(36)  ,
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	control_group_flg    CHAR(1)    
 ) DISTRIBUTED BY (contact_id)) BY GREENPLM;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
@@ -279,7 +280,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 	contact_id           VARCHAR(36)  ,
 	content_hash_val     VARCHAR(32)  ,
 	updated_by_nm        VARCHAR(60)  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	properties_map_doc   VARCHAR(4000)  
 ) DISTRIBUTED BY (response_id)) BY GREENPLM;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
@@ -308,6 +310,31 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_type
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  
 ) DISTRIBUTED BY (response_type_cd)) BY GREENPLM;
+
+EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_test
+(
+	test_cd              VARCHAR(60) NOT NULL ,
+	task_version_id      VARCHAR(36) NOT NULL ,
+	task_id              VARCHAR(36) NOT NULL ,
+	test_nm              VARCHAR(65)  ,
+	test_type_nm         VARCHAR(10)  ,
+	test_enabled_flg     CHAR(1)  ,
+	test_sizing_type_nm  VARCHAR(65)  ,
+	test_cnt             INTEGER  ,
+	test_pct             NUMERIC(5,2)  ,
+	stratified_sampling_flg CHAR(1)  ,
+	stratified_samp_criteria_txt VARCHAR(1024)  ,
+	updated_dttm         TIMESTAMP  
+) DISTRIBUTED BY (test_cd)) BY GREENPLM;
+
+EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_test_x_segment
+(
+	test_cd              VARCHAR(60) NOT NULL ,
+	task_version_id      VARCHAR(36) NOT NULL ,
+	task_id              VARCHAR(36) NOT NULL ,
+	segment_id           VARCHAR(36)  ,
+	updated_dttm         TIMESTAMP  
+) DISTRIBUTED BY (test_cd)) BY GREENPLM;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 (
@@ -353,7 +380,10 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	source_system_cd     VARCHAR(10)  ,
 	updated_by_nm        VARCHAR(60)  ,
 	updated_dttm         TIMESTAMP  ,
-	recurring_schedule_flg CHAR(1)  
+	recurring_schedule_flg CHAR(1)  ,
+	control_group_action_nm VARCHAR(65)  ,
+	stratified_sampling_action_nm VARCHAR(65)  ,
+	segment_tests_flg    CHAR(1)    
 ) DISTRIBUTED BY (task_version_id)) BY GREENPLM;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr
@@ -573,6 +603,12 @@ EXECUTE (ALTER TABLE &SCHEMA..cdm_response_lookup
 
 EXECUTE (ALTER TABLE &SCHEMA..cdm_response_type
 	ADD CONSTRAINT  response_type_pk PRIMARY KEY (response_type_cd)) BY GREENPLM;
+	
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test
+	ADD CONSTRAINT  segment_test_pk PRIMARY KEY (test_cd,task_version_id,task_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test_x_segment
+	ADD CONSTRAINT  segment_test_x_segment_pk PRIMARY KEY (test_cd,task_version_id,task_id)) BY GREENPLM;
 
 EXECUTE (ALTER TABLE &SCHEMA..cdm_task_detail
 	ADD CONSTRAINT  task_pk PRIMARY KEY (task_version_id)) BY GREENPLM;
@@ -653,6 +689,9 @@ EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_history
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_response_extended_attr
 	ADD CONSTRAINT response_extended_attr_fk1 FOREIGN KEY (response_id) REFERENCES cdm_response_history (response_id)) BY GREENPLM;
+
+EXECUTE ( ALTER TABLE &SCHEMA..cdm_segment_test_x_segment
+	ADD CONSTRAINT segment_test_x_segment_fk1 FOREIGN KEY (test_cd,task_version_id,task_id) REFERENCES cdm_segment_test (test_cd,task_version_id,task_id)) BY GREENPLM;
 
 EXECUTE ( ALTER TABLE &SCHEMA..cdm_task_detail
 	ADD CONSTRAINT task_detail_fk1 FOREIGN KEY (campaign_id) REFERENCES cdm_campaign_detail (campaign_id)) BY GREENPLM;

@@ -1,4 +1,4 @@
-﻿/*---------------------------------------------------------------------------------------
+/*---------------------------------------------------------------------------------------
  *  Copyright (c) 2005-2020, SAS Institute Inc., Cary, NC, USA, All Rights Reserved
  *---------------------------------------------------------------------------------------
  *
@@ -530,7 +530,10 @@
                              contact_channel_cd = contact_channel_cd_tmp
                              campaign_id = campaign_id_tmp
                              business_context_id = business_context_id_tmp
-							 recurring_schedule_flg=recurring_schedule_flg_tmp));
+							 recurring_schedule_flg=recurring_schedule_flg_tmp
+							 control_group_action_nm=control_group_action_nm_tmp
+							 stratified_sampling_action_nm=stratified_samp_act_nm_tmp
+							 segment_tests_flg=segment_tests_flg_tmp));
 
                 if _n_ = 1 then do;
                     uobs=0;
@@ -585,6 +588,9 @@
                     source_system_cd = "&source_system_cd";
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
+					control_group_action_nm=control_group_action_nm_tmp;
+					stratified_sampling_action_nm=stratified_samp_act_nm_tmp;
+					segment_tests_flg=segment_tests_flg_tmp;
 
                     if _iorc_ eq %sysrc(_SOK) then do;
                         replace;
@@ -786,7 +792,9 @@
                              optimization_backfill_flg=optimization_backfill_flg_tmp
                              external_contact_info_1_id=external_contact_info_1_id_tmp
                              external_contact_info_2_id=external_contact_info_2_id_tmp
-                             rtc_id=rtc_id_tmp)
+                             rtc_id=rtc_id_tmp
+							 updated_dttm=updated_dttm_tmp
+							 control_group_flg=control_group_flg_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -812,6 +820,7 @@
                     source_system_cd="&source_system_cd";
                     updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
+					control_group_flg=control_group_flg_tmp;
 
                     if _iorc_ eq %sysrc(_SOK) then do;
                         replace;
@@ -1403,7 +1412,9 @@
                              content_version_id = content_version_id_tmp
                              response_val_amt = response_val_amt_tmp
                              contact_id = contact_id_tmp
-                             content_hash_val = content_hash_val_tmp)
+                             content_hash_val = content_hash_val_tmp
+							 updated_dttm = updated_dttm_tmp
+							 properties_map_doc = properties_map_doc_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1437,6 +1448,7 @@
                     content_hash_val = content_hash_val_tmp;
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
+					properties_map_doc = properties_map_doc_tmp;
 
                     if _iorc_ eq %sysrc(_SOK) then do;
                         replace;
@@ -1468,6 +1480,7 @@
                 retain uobs oobs;
                 set cdmmart.cdm_response_extended_attr
                     (rename=(attribute_data_type_cd=attribute_data_type_cd_tmp
+					         updated_dttm=updated_dttm_tmp
                              attribute_val=attribute_val_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
@@ -1510,7 +1523,107 @@
             %if &rc %then %goto ERREXIT;
 
     %end;
+	
+	%if %sysfunc(exist(cdmmart.cdm_segment_test)) %then %do;
 
+            data dblib.cdm_segment_test;
+                retain uobs oobs;
+                set cdmmart.cdm_segment_test
+                    (rename=(test_nm=test_nm_tmp
+                             test_type_nm=test_type_nm_tmp
+							 test_enabled_flg=test_enabled_flg_tmp
+							 test_sizing_type_nm=test_sizing_type_nm_tmp
+							 test_cnt=test_cnt_tmp
+							 test_pct=test_pct_tmp
+							 stratified_sampling_flg=stratified_sampling_flg_tmp
+							 stratified_samp_criteria_txt=stratified_samp_crit_txt_tmp));
+                if _n_ = 1 then do;
+                    uobs=0;
+                    oobs=0;
+                    call symput('uobs',strip(uobs));
+                    call symput('oobs',strip(oobs));
+                end;
+
+                modify dblib.cdm_segment_test
+                    (cntllev=rec dbkey=(test_cd task_version_id task_id)) key=dbkey;
+
+                if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
+
+					test_nm = test_nm_tmp;
+					test_type_nm = test_type_nm_tmp;
+					test_enabled_flg = test_enabled_flg_tmp;
+					test_sizing_type_nm = test_sizing_type_nm_tmp;
+					test_cnt = test_cnt_tmp;
+					test_pct = test_pct_tmp;
+					stratified_sampling_flg = stratified_sampling_flg_tmp;
+					stratified_samp_criteria_txt = stratified_samp_crit_txt_tmp;
+                    updated_dttm = input("&CurrentDateTime", e8601dz24.3);
+
+                    if _iorc_ eq %sysrc(_SOK) then do;
+                        replace;
+                        uobs = uobs + 1;
+                        call symput('uobs',strip(uobs));
+                    end;
+                    else do;
+                        output;
+                        oobs = oobs + 1;
+                        call symput('oobs',strip(oobs));
+                    end;
+                end;
+
+                _iorc_ = 0;
+                _error_ = 0;
+            run;
+
+            %put %sysfunc(datetime(),E8601DT25.) ---     &uobs rows updated, &oobs added to table CDM_SEGMENT_TEST;
+
+            %ErrorCheck(CDM_SEGMENT_TEST);
+            %if &rc %then %goto ERREXIT;
+
+    %end;
+
+	%if %sysfunc(exist(cdmmart.cdm_segment_test_x_segment)) %then %do;
+
+            data dblib.cdm_segment_test_x_segment;
+                retain uobs oobs;
+                set cdmmart.cdm_segment_test_x_segment ;
+
+                if _n_ = 1 then do;
+                    uobs=0;
+                    oobs=0;
+                    call symput('uobs',strip(uobs));
+                    call symput('oobs',strip(oobs));
+                end;
+
+                modify dblib.cdm_segment_test_x_segment
+                    (cntllev=rec dbkey=(test_cd task_version_id task_id segment_id)) key=dbkey;
+
+                if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
+
+					updated_dttm = input("&CurrentDateTime", e8601dz24.3);
+
+                    if _iorc_ eq %sysrc(_SOK) then do;
+                        replace;
+                        uobs = uobs + 1;
+                        call symput('uobs',strip(uobs));
+                    end;
+                    else do;
+                        output;
+                        oobs = oobs + 1;
+                        call symput('oobs',strip(oobs));
+                    end;
+                end;
+
+                _iorc_ = 0;
+                _error_ = 0;
+            run;
+
+            %put %sysfunc(datetime(),E8601DT25.) ---     &uobs rows updated, &oobs added to table CDM_SEGMENT_TEST_X_SEGMENT;
+
+            %ErrorCheck(CDM_SEGMENT_TEST_X_SEGMENT);
+            %if &rc %then %goto ERREXIT;
+
+    %end;
     %ERREXIT:
 
     %if &rc %then %do;

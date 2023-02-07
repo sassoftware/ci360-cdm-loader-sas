@@ -11,7 +11,7 @@
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
 /*  Note:  This code Drops the CI360 Common Data Model 2.0          */
-/*         tables and constraints.                                  */
+/*         tables to align with Schema10 modifications.             */
 /*                                                                  */
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
@@ -78,6 +78,10 @@ EXECUTE (DROP TABLE cdm_identity_map) BY TERADATA;
 EXECUTE (DROP TABLE cdm_identity_type) BY TERADATA;
 
 EXECUTE (DROP TABLE cdm_response_type) BY TERADATA;
+
+EXECUTE (DROP TABLE cdm_segment_test_x_segment) BY TERADATA;
+
+EXECUTE (DROP TABLE cdm_segment_test) BY TERADATA;
 
 DISCONNECT FROM TERADATA;
 QUIT;

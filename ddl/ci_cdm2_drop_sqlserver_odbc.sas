@@ -11,7 +11,7 @@
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
 /*  Note:  This code Drops the CI360 Common Data Model 2.0          */
-/*         tables and constraints.                                  */
+/*         tables to align with Schema10 modifications.             */
 /*                                                                  */
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
@@ -78,6 +78,10 @@ EXECUTE (DROP TABLE &SCHEMA..cdm_identity_map) BY ODBC;
 EXECUTE (DROP TABLE &SCHEMA..cdm_identity_type) BY ODBC;
 
 EXECUTE (DROP TABLE &SCHEMA..cdm_response_type) BY ODBC;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test_x_segment) BY ODBC;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test) BY ODBC;
 
 DISCONNECT FROM ODBC;
 QUIT;

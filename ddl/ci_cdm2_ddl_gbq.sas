@@ -136,7 +136,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_history
 	rtc_id               STRING  ,
 	source_system_cd     STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	control_group_flg    STRING    
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
@@ -275,7 +276,8 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_history
 	contact_id           STRING  ,
 	content_hash_val     STRING  ,
 	updated_by_nm        STRING  ,
-	updated_dttm         TIMESTAMP  
+	updated_dttm         TIMESTAMP  ,
+	properties_map_doc   STRING    
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_response_extended_attr
@@ -302,6 +304,31 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_response_type
 	response_type_cd     STRING NOT NULL ,
 	response_type_desc   STRING  ,
 	updated_by_nm        STRING  ,
+	updated_dttm         TIMESTAMP  
+)) BY SASIOGBQ;
+
+EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_test
+(
+	test_cd              STRING NOT NULL ,
+	task_version_id      STRING NOT NULL ,
+	task_id              STRING NOT NULL ,
+	test_nm              STRING  ,
+	test_type_nm         STRING  ,
+	test_enabled_flg     STRING  ,
+	test_sizing_type_nm  STRING  ,
+	test_cnt             INT64  ,
+	test_pct             NUMERIC  ,
+	stratified_sampling_flg STRING  ,
+	stratified_samp_criteria_txt STRING  ,
+	updated_dttm         TIMESTAMP  
+)) BY SASIOGBQ;
+
+EXECUTE (CREATE TABLE &SCHEMA..cdm_segment_test_x_segment
+(
+	test_cd              STRING NOT NULL ,
+	task_version_id      STRING NOT NULL ,
+	task_id              STRING NOT NULL ,
+	segment_id           STRING  ,
 	updated_dttm         TIMESTAMP  
 )) BY SASIOGBQ;
 
@@ -349,7 +376,10 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_task_detail
 	source_system_cd     STRING  ,
 	updated_by_nm        STRING  ,
 	updated_dttm         TIMESTAMP  ,
-	recurring_schedule_flg STRING  
+	recurring_schedule_flg STRING  ,
+	control_group_action_nm STRING  ,
+	stratified_sampling_action_nm STRING  ,
+	segment_tests_flg    STRING    
 )) BY SASIOGBQ;
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_task_custom_attr

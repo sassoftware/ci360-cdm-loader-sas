@@ -1,6 +1,6 @@
  
 /*======================================================================*/
-/* Enter Customer Specific Target Source Connection Values - SQL Server */
+/* Enter Customer Specific Target Source Connection Values - Azure SQL  */
 /*======================================================================*/
 
 %let user = <User Name> ;         /* Other than Default User */

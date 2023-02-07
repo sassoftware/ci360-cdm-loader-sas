@@ -10,7 +10,7 @@
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
 /*  Note:  This code Drops the CI360 Common Data Model 2.0          */
-/*         tables and constraints.                                  */
+/*         tables to align with Schema10 modifications.             */
 /*                                                                  */
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
@@ -77,6 +77,10 @@ EXECUTE (DROP TABLE &SCHEMA..cdm_identity_map CASCADE ) BY SASIORST;
 EXECUTE (DROP TABLE &SCHEMA..cdm_identity_type CASCADE ) BY SASIORST;
 
 EXECUTE (DROP TABLE &SCHEMA..cdm_response_type CASCADE ) BY SASIORST;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test_x_segment CASCADE ) BY SASIORST;
+
+EXECUTE (DROP TABLE &SCHEMA..cdm_segment_test CASCADE ) BY SASIORST;
 
 DISCONNECT FROM SASIORST;
 QUIT;

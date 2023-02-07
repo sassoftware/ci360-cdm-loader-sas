@@ -8,8 +8,8 @@
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /*                                                                  */
-/*  Note:  This code Drops the CI360 Common Data Model 2.0        */
-/*         tables and constraints.                                  */
+/*  Note:  This code Drops the CI360 Common Data Model 2.0          */
+/*         tables to align with Schema10 modifications.             */
 /*                                                                  */
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
@@ -76,6 +76,10 @@ EXECUTE (DROP TABLE cdm_identity_map CASCADE CONSTRAINTS PURGE) BY ORACLE;
 EXECUTE (DROP TABLE cdm_identity_type CASCADE CONSTRAINTS PURGE) BY ORACLE;
 
 EXECUTE (DROP TABLE cdm_response_type CASCADE CONSTRAINTS PURGE) BY ORACLE;
+
+EXECUTE (DROP TABLE cdm_segment_test_x_segment CASCADE CONSTRAINTS PURGE) BY ORACLE;
+
+EXECUTE (DROP TABLE cdm_segment_test CASCADE CONSTRAINTS PURGE) BY ORACLE;
 
 DISCONNECT FROM ORACLE;
 QUIT;
