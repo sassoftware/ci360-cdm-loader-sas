@@ -59,8 +59,8 @@
  *  used the first time the process is run.
  */
 
-    %let CDM_DDL_SchemaVer = 10;
-    %let CDM_CodeVersion = 4.0;
+    %let CDM_DDL_SchemaVer = 16;
+    %let CDM_CodeVersion = 5.0;
     %let CDMHistoryFile = cdm_history;
 
 /*
