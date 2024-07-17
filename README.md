@@ -24,7 +24,7 @@ Before you set up the CDM loader to run, familiarize with the database setup and
 
 ### Setting up the On-Premises Database Tables
 Before you can load CDM data into the third-party database, the tables must be created in the database using
-an appropriate DDL file.
+an appropriate DDL file.e.g for Oracle database use ./ddl/ci_cdm3_ddl_oracle.sas
 
 The /ddl folder contains DDL macros to create the tables in many third-party databases. If a DDL macro  
 does not exist for a specific database, use an existing DDL as a template to start from.
@@ -85,10 +85,12 @@ These examples show how to set the variables in cdm_launch.sas.
    %let dbpass="mypass";
    ```
 
-### Migrating to Schema 8
-If you are using CDM loader with schema 6. please update your database  to schema 8 using alter ddl file  ./ddl/ci_cdm2_alter_ddl_<dbname>.sas .
-e.g. if you are using oracle as databasee alter file is ci_cdm2_alter_ddl_oracle.sas .
+### Migrating to Schema 16
+If you are using CDM loader with schema 10. please update your database  to schema 16 using alter ddl file  ./ddl/ci_cdm3_alter_ddl_<dbname>.sas .
+e.g. if you are using oracle as databasee alter file is ci_cdm3_alter_ddl_oracle.sas .
 Please run the alter ddls and then run the cdm loader program.
+Use updated SAS download client for schema16.
+
 
 ### Troubleshooting
 The Postgres DDL, including Aurora Postgres, need to be run as a superuser to avoid permission error while executing disable trigger code:
