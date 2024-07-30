@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------------------------------
+﻿/*---------------------------------------------------------------------------------------
  *  Copyright (c) 2005-2020, SAS Institute Inc., Cary, NC, USA, All Rights Reserved
  *---------------------------------------------------------------------------------------
  *
@@ -794,7 +794,12 @@
                              external_contact_info_2_id=external_contact_info_2_id_tmp
                              rtc_id=rtc_id_tmp
 							 updated_dttm=updated_dttm_tmp
-							 control_group_flg=control_group_flg_tmp)
+							 control_group_flg=control_group_flg_tmp
+							 contact_dttm_tz=contact_dttm_tz_tmp
+							 audience_id=audience_id_tmp
+							 audience_occur_id=audience_occur_id_tmp
+							 context_type_nm=context_type_nm_tmp
+							 context_val=context_val_tmp)
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -821,6 +826,11 @@
                     updated_by_nm="&updated_by_nm";
                     updated_dttm=input("&CurrentDateTime", e8601dz24.3);
 					control_group_flg=control_group_flg_tmp;
+					contact_dttm_tz=contact_dttm_tz_tmp;
+					audience_id=audience_id_tmp;
+					audience_occur_id=audience_occur_id_tmp;
+					context_type_nm=context_type_nm_tmp;
+					context_val=context_val_tmp;
 
                     if _iorc_ eq %sysrc(_SOK) then do;
                         replace;
@@ -1414,7 +1424,12 @@
                              contact_id = contact_id_tmp
                              content_hash_val = content_hash_val_tmp
 							 updated_dttm = updated_dttm_tmp
-							 properties_map_doc = properties_map_doc_tmp)
+							 properties_map_doc = properties_map_doc_tmp
+							 response_dttm_tz = response_dttm_tz_tmp
+							 audience_id = audience_id_tmp
+							 audience_occur_id = audience_occur_id_tmp
+							 context_type_nm = context_type_nm_tmp
+							 context_val = context_val_tmp )
                      where=(updated_dttm_tmp ge &CDM_UDMFirstEventDate));
 
                 if _n_ = 1 then do;
@@ -1449,7 +1464,11 @@
                     updated_by_nm = "&updated_by_nm";
                     updated_dttm = input("&CurrentDateTime", e8601dz24.3);
 					properties_map_doc = properties_map_doc_tmp;
-
+					response_dttm_tz = response_dttm_tz_tmp;
+					audience_id = audience_id_tmp;
+					audience_occur_id = audience_occur_id_tmp;
+					context_type_nm = context_type_nm_tmp;
+					context_val = context_val_tmp;
                     if _iorc_ eq %sysrc(_SOK) then do;
                         replace;
                         uobs = uobs + 1;
@@ -1623,6 +1642,111 @@
             %ErrorCheck(CDM_SEGMENT_TEST_X_SEGMENT);
             %if &rc %then %goto ERREXIT;
 
+    %end;
+	%if %sysfunc(exist(cdmmart.CDM_AUDIENCE_DETAIL)) %then %do;
+
+            data dblib.CDM_AUDIENCE_DETAIL;
+                retain uobs oobs;
+                set cdmmart.CDM_AUDIENCE_DETAIL
+                    (rename=(audience_nm=audience_nm_tmp
+                             audience_desc=audience_desc_tmp
+							 created_user_nm=created_user_nm_tmp
+							 audience_schedule_flg=audience_schedule_flg_tmp
+							 audience_source_nm=audience_source_nm_tmp
+							 audience_data_source_nm=audience_data_source_nm_tmp
+							 create_dttm=create_dttm_tmp
+							 delete_dttm=delete_dttm_tmp));
+                if _n_ = 1 then do;
+                    uobs=0;
+                    oobs=0;
+                    call symput('uobs',strip(uobs));
+                    call symput('oobs',strip(oobs));
+                end;
+
+                modify dblib.CDM_AUDIENCE_DETAIL
+                    (cntllev=rec dbkey=(audience_id)) key=dbkey;
+
+                if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
+
+					audience_nm=audience_nm_tmp;
+					audience_desc=audience_desc_tmp;
+					created_user_nm=created_user_nm_tmp;
+					audience_schedule_flg=audience_schedule_flg_tmp;
+					audience_source_nm=audience_source_nm_tmp;
+					audience_data_source_nm=audience_data_source_nm_tmp;
+					create_dttm=create_dttm_tmp;
+					delete_dttm=delete_dttm_tmp;
+                    updated_dttm = input("&CurrentDateTime", e8601dz24.3);
+
+                    if _iorc_ eq %sysrc(_SOK) then do;
+                        replace;
+                        uobs = uobs + 1;
+                        call symput('uobs',strip(uobs));
+                    end;
+                    else do;
+                        output;
+                        oobs = oobs + 1;
+                        call symput('oobs',strip(oobs));
+                    end;
+                end;
+
+                _iorc_ = 0;
+                _error_ = 0;
+            run;
+            %put %sysfunc(datetime(),E8601DT25.) ---     &uobs rows updated, &oobs added to table CDM_AUDIENCE_DETAIL;
+            %ErrorCheck(CDM_AUDIENCE_DETAIL);
+            %if &rc %then %goto ERREXIT;
+    %end;
+	%if %sysfunc(exist(cdmmart.CDM_AUDIENCE_OCCUR_DETAIL)) %then %do;
+
+            data dblib.CDM_AUDIENCE_OCCUR_DETAIL;
+                retain uobs oobs;
+                set cdmmart.CDM_AUDIENCE_OCCUR_DETAIL
+                    (rename=(audience_id=audience_id_tmp
+                             execution_status_cd=execution_status_cd_tmp
+							 audience_size_cnt=audience_size_cnt_tmp
+							 started_by_nm=started_by_nm_tmp
+							 occurrence_type_nm=occurrence_type_nm_tmp
+							 start_dttm=start_dttm_tmp
+							 end_dttm=end_dttm_tmp));
+                if _n_ = 1 then do;
+                    uobs=0;
+                    oobs=0;
+                    call symput('uobs',strip(uobs));
+                    call symput('oobs',strip(oobs));
+                end;
+
+                modify dblib.CDM_AUDIENCE_OCCUR_DETAIL
+                    (cntllev=rec dbkey=(audience_occur_id)) key=dbkey;
+
+                if _iorc_ in(%sysrc(_DSENMR), %sysrc(_DSENOM), %sysrc(_DSEMTR)) or _iorc_ eq %sysrc(_SOK) then do;
+					audience_id=audience_id_tmp;
+					execution_status_cd=execution_status_cd_tmp;
+					audience_size_cnt=audience_size_cnt_tmp;
+					started_by_nm=started_by_nm_tmp;
+					occurrence_type_nm=occurrence_type_nm_tmp;
+					start_dttm=start_dttm_tmp;
+					end_dttm=end_dttm_tmp;
+                    updated_dttm = input("&CurrentDateTime", e8601dz24.3);
+
+                    if _iorc_ eq %sysrc(_SOK) then do;
+                        replace;
+                        uobs = uobs + 1;
+                        call symput('uobs',strip(uobs));
+                    end;
+                    else do;
+                        output;
+                        oobs = oobs + 1;
+                        call symput('oobs',strip(oobs));
+                    end;
+                end;
+
+                _iorc_ = 0;
+                _error_ = 0;
+            run;
+            %put %sysfunc(datetime(),E8601DT25.) ---     &uobs rows updated, &oobs added to table CDM_AUDIENCE_OCCUR_DETAIL;
+            %ErrorCheck(CDM_AUDIENCE_OCCUR_DETAIL);
+            %if &rc %then %goto ERREXIT;
     %end;
     %ERREXIT:
 
