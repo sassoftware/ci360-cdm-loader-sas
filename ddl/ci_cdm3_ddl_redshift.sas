@@ -198,7 +198,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_contact_status
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_content_detail
 (
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	content_id           VARCHAR(40) NULL ,
 	valid_from_dttm      TIMESTAMP NOT NULL ,
 	valid_to_dttm        TIMESTAMP NULL ,
@@ -222,7 +222,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_detail
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 (
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	attribute_nm         VARCHAR(256) NOT NULL ,
 	attribute_data_type_cd VARCHAR(30) NOT NULL ,
 	attribute_val        VARCHAR(1500) NOT NULL ,
@@ -237,7 +237,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_content_custom_attr
 
 EXECUTE (CREATE TABLE &SCHEMA..cdm_dyn_content_custom_attr
 (
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	attribute_nm         VARCHAR(256) NOT NULL ,
 	content_hash_val     VARCHAR(32) NOT NULL ,
 	attribute_data_type_cd VARCHAR(30) NOT NULL ,
@@ -469,7 +469,7 @@ EXECUTE (CREATE TABLE &SCHEMA..cdm_rtc_x_content
 (
 	rtc_x_content_sk     VARCHAR(36) NOT NULL ,
 	rtc_id               VARCHAR(36) NOT NULL ,
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	content_hash_val     VARCHAR(32) NULL ,
 	sequence_no          INTEGER NULL ,
 	updated_by_nm        VARCHAR(60) NULL ,
