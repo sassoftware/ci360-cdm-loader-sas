@@ -414,7 +414,7 @@ CONSTRAINT rtc_detail_fk3 FOREIGN KEY (occurrence_id) REFERENCES WITH NO CHECK O
 
 EXECUTE (CREATE TABLE cdm_content_detail
 (
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	content_id           VARCHAR(40)  ,
 	valid_from_dttm      TIMESTAMP NOT NULL ,
 	valid_to_dttm        TIMESTAMP  ,
@@ -587,7 +587,7 @@ CONSTRAINT identity_attr_fk2 FOREIGN KEY (identity_id) REFERENCES WITH NO CHECK 
 
 EXECUTE (CREATE TABLE cdm_content_custom_attr
 (
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	attribute_nm         VARCHAR(256) NOT NULL ,
 	attribute_data_type_cd VARCHAR(30) NOT NULL ,
 	attribute_val        VARCHAR(1500) NOT NULL ,
@@ -608,7 +608,7 @@ CONSTRAINT content_custom_attr_fk1 FOREIGN KEY (content_version_id) REFERENCES W
 
 EXECUTE (CREATE TABLE cdm_dyn_content_custom_attr
 (
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	attribute_nm         VARCHAR(256) NOT NULL ,
 	content_hash_val     VARCHAR(32) NOT NULL ,
 	attribute_data_type_cd VARCHAR(30) NOT NULL ,
@@ -632,7 +632,7 @@ EXECUTE (CREATE TABLE cdm_rtc_x_content
 (
 	rtc_x_content_sk     VARCHAR(36) NOT NULL ,
 	rtc_id               VARCHAR(36) NOT NULL ,
-	content_version_id   VARCHAR(40) NOT NULL ,
+	content_version_id   VARCHAR(40) ,
 	content_hash_val     VARCHAR(32)  ,
 	sequence_no          INTEGER  ,
 	updated_by_nm        VARCHAR(60)  ,
